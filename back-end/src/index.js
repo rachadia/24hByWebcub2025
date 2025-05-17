@@ -28,6 +28,20 @@ const swaggerOptions = {
       version: '1.0.0',
       description: 'API documentation for Express MySQL Authentication system',
     },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
     servers: [
       {
         url: `http://localhost:${PORT}`,
