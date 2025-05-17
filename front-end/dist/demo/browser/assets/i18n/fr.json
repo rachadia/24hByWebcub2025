@@ -1,0 +1,154 @@
+{
+  "COMMON": {
+    "WELCOME": "Bienvenue",
+    "LANGUAGE": "Langue",
+    "FRENCH": "Français",
+    "ENGLISH": "Anglais",
+    "REQUIRED": "est requis",
+    "MIN_LENGTH": "doit contenir au moins 10 caractères"
+  },
+  "NAVIGATION": {
+    "HOME": "Accueil",
+    "ABOUT": "À propos",
+    "CONTACT": "Contact",
+    "EVENTS": "Mes événements"
+  },
+  "AUTH": {
+    "LOGIN": "Connexion",
+    "REGISTER": "Inscription",
+    "LOGOUT": "Déconnexion"
+  },
+  "EVENTS": {
+    "NEW": "Nouvel événement",
+    "MY_EVENTS": "Mes événements",
+    "LIST": {
+      "TITLE": "Mes Événements",
+      "EMPTY": "Vous n'avez pas encore d'événements",
+      "CREATE_FIRST": "Créer mon premier événement",
+      "SEARCH": "Rechercher un événement...",
+      "SORT": {
+        "LABEL": "Trier par",
+        "DATE_ASC": "Date (plus ancien)",
+        "DATE_DESC": "Date (plus récent)",
+        "TITLE_ASC": "Titre (A-Z)",
+        "TITLE_DESC": "Titre (Z-A)"
+      },
+      "FILTERS": {
+        "ALL": "Tous les événements"
+      },
+      "VIEW_EVENT": "Voir l'événement",
+      "NO_EVENTS_FOUND": "Aucun événement trouvé",
+      "GET_STARTED": "Commencez par créer un nouvel événement",
+      "ATTACHMENT_ALT": "Pièce jointe"
+    },
+    "CREATE": {
+      "TITLE": "Créer un nouvel événement",
+      "FORM": {
+        "TITLE": "Titre",
+        "TITLE_PLACEHOLDER": "Donnez un titre à votre événement",
+        "DATE": "Date",
+        "DESCRIPTION": "Description",
+        "DESCRIPTION_PLACEHOLDER": "Décrivez votre histoire...",
+        "CONTENT": "Contenu",
+        "CONTENT_PLACEHOLDER": "Décrivez leurs versions de l'histoire, et comment vous vous sentez...",
+        "EMOTION": "Émotion",
+        "EMOTION_PLACEHOLDER": "Comment vous sentez-vous ?",
+        "MEDIA": "Médias",
+        "MEDIA_PLACEHOLDER": "Ajoutez des photos ou des vidéos",
+        "SUBMIT": "Créer l'événement",
+        "CANCEL": "Annuler",
+        "UPLOAD_CLICK": "Cliquez pour télécharger",
+        "UPLOAD_DRAG": "ou glissez-déposez",
+        "UPLOAD_FORMATS": "SVG, PNG, JPG ou GIF (MAX. 2MB)",
+        "UPLOAD_FUTURE": "(Le téléchargement de fichiers sera disponible dans une future mise à jour)",
+        "DETECTED_MOOD": "Humeur détectée",
+        "DETECTED_MOOD_DESC": "D'après votre texte, nous avons détecté une humeur {{emotion}}. Votre événement sera stylisé avec un thème correspondant."
+      }
+    },
+    "EMOTIONS": {
+      "JOY": "Joie",
+      "CONTENT": "Satisfaction",
+      "SADNESS": "Tristesse",
+      "ANGER": "Colère",
+      "FEAR": "Peur"
+    },
+    "DETAIL": {
+      "EDIT": "Modifier",
+      "DELETE": "Supprimer",
+      "DELETE_CONFIRM": "Êtes-vous sûr de vouloir supprimer cet événement ?",
+      "BACK": "Retour à la liste",
+      "SHARE": "Partager",
+      "DATE": "Date",
+      "EMOTION": "Émotion",
+      "DESCRIPTION": "Description",
+      "MEDIA": "Médias"
+    },
+    "EDIT": {
+      "TITLE": "Modifier l'événement",
+      "FORM": {
+        "TITLE": "Titre",
+        "TITLE_PLACEHOLDER": "Donnez un titre à votre événement",
+        "DATE": "Date",
+        "DESCRIPTION": "Description",
+        "DESCRIPTION_PLACEHOLDER": "Décrivez votre événement...",
+        "EMOTION": "Émotion",
+        "EMOTION_PLACEHOLDER": "Comment vous sentez-vous ?",
+        "MEDIA": "Médias",
+        "MEDIA_PLACEHOLDER": "Ajoutez des photos ou des vidéos",
+        "SUBMIT": "Enregistrer les modifications",
+        "CANCEL": "Annuler"
+      }
+    }
+  },
+  "PROFILE": {
+    "TITLE": "Votre profil"
+  },
+  "HOME": {
+    "HERO": {
+      "TITLE_1": "Partagez les",
+      "TITLE_2": "Moments Significatifs de Votre Vie",
+      "DESCRIPTION": "The End Page vous aide à documenter les événements importants de votre vie, à suivre votre parcours émotionnel et à réfléchir sur vos expériences au fil du temps."
+    },
+    "CTA": {
+      "GET_STARTED": "Commencer",
+      "LOGIN": "Se connecter",
+      "CREATE_EVENT": "Créer un nouvel événement",
+      "LEARN_MORE": "En savoir plus"
+    },
+    "FEATURES": {
+      "TITLE": "Comment ça marche",
+      "SUBTITLE": "Une façon simple de chroniquer votre parcours émotionnel",
+      "FEATURE_1": {
+        "TITLE": "Partagez Vos Expériences",
+        "DESCRIPTION": "Documentez des moments significatifs, joignez des médias et exprimez vos sentiments dans un espace personnel sécurisé."
+      },
+      "FEATURE_2": {
+        "TITLE": "Détection d'Émotions",
+        "DESCRIPTION": "Notre plateforme analyse vos entrées pour identifier les émotions et suggère des thèmes visuels correspondant à votre humeur."
+      },
+      "FEATURE_3": {
+        "TITLE": "Suivez Votre Parcours",
+        "DESCRIPTION": "Revisitez les événements passés, réfléchissez à votre croissance et observez l'évolution de vos émotions au fil du temps."
+      }
+    },
+    "JOURNEY": {
+      "TITLE_1": "Prêt à commencer votre voyage ?",
+      "TITLE_2": "Créez votre compte aujourd'hui."
+    }
+  },
+  "welcome": "Bienvenue",
+  "home": "Accueil",
+  "about": "À propos",
+  "contact": "Contact",
+  "language": "Langue",
+  "login": "Connexion",
+  "signup": "Inscription",
+  "signout": "Déconnexion",
+  "profile": "Votre Profil",
+  "myEvents": "Mes Événements",
+  "newEvent": "Nouvel Événement",
+  "notifications": "Notifications",
+  "settings": "Paramètres",
+  "darkMode": "Mode Sombre",
+  "lightMode": "Mode Clair"
+} 
