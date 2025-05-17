@@ -6,23 +6,23 @@ dotenv.config();
 
 // Database configuration
 const sequelize = new Sequelize(
-  process.env.DB_NAME || 'the_end_page_db',
-  process.env.DB_USER || 'root',
-  process.env.DB_PASSWORD || '',
+  process.env.DB_NAME || "lesmakiscodeu_the_end_page_db",
+  process.env.DB_USER || "Makiscodeur",
+  process.env.DB_PASSWORD || "LesM4ki!",
   {
-    host: process.env.DB_HOST || 'localhost',
-    dialect: 'mysql',
-    logging: process.env.NODE_ENV === 'development' ? console.log : false,
+    host: process.env.DB_HOST || "192.168.161.12:3306", 
+    dialect: "mysql",
+    logging: process.env.NODE_ENV === "development" ? console.log : false,
     pool: {
       max: 5,
       min: 0,
       acquire: 30000,
-      idle: 10000
+      idle: 10000,
     },
     define: {
       timestamps: true,
-      underscored: true
-    }
+      underscored: true,
+    },
   }
 );
 
