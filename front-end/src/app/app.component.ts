@@ -13,7 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
   imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent, TranslateModule],
   template: `
-    <div class="flex min-h-screen flex-col" [ngClass]="currentTheme">
+    <div class="cosmic-body flex min-h-screen flex-col" [ngClass]="currentTheme || 'theme-cosmic'">
       <app-header></app-header>
       <main class="flex-1 px-4 py-6 sm:px-6 lg:px-8">
         <router-outlet></router-outlet>
@@ -40,33 +40,17 @@ export class AppComponent implements OnInit {
       this.currentTheme = theme;
     });
 
-    // Récupérer le thème global sauvegardé
-    const savedGlobalTheme = localStorage.getItem('globalTheme');
-    if (savedGlobalTheme) {
-      this.globalThemeManager.applyTheme(savedGlobalTheme);
-    } else {
-      // Si aucun thème global n'est défini, procéder avec la logique existante
-      
-      // Récupérer le thème sauvegardé
-      const savedTheme = localStorage.getItem('theme');
-      const isLoggedIn = this.authService.isAuthenticated();
-      
-      // Si l'utilisateur est connecté et a déjà choisi un thème
-      if (isLoggedIn && savedTheme) {
-        // Si le thème sauvegardé est 'theme-fear' (supprimé), utiliser un thème épanouissant
-        if (savedTheme === 'theme-fear') {
-          this.themeService.setTheme('theme-intensity');
-        } else {
-          // Sinon, conserver son choix précédent
-          this.themeService.setTheme(savedTheme);
-        }
-      } 
-      // Si aucun thème n'est défini ou si l'utilisateur n'est pas connecté et n'a pas de préférence
-      else if (!this.currentTheme || !savedTheme) {
-        // Attribuer un thème épanouissant par défaut (alternance entre Intensité et Joyeux)
-        const randomTheme = Math.random() > 0.5 ? 'theme-intensity' : 'theme-joy';
-        this.themeService.setTheme(randomTheme);
-      }
+    // Si aucun thème n'est défini, utiliser le thème cosmique
+    if (!this.currentTheme) {
+      this.themeService.setTheme('theme-cosmic');
+    }
+
+    // Activer le mode sombre par défaut pour le thème cosmique
+    document.documentElement.classList.add('dark');
+
+    // Check if user prefers dark mode
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.classList.add('dark');
     }
 
     // Vérifier la préférence de mode sombre/clair
@@ -81,8 +65,13 @@ export class AppComponent implements OnInit {
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
       if (e.matches && localStorage.getItem('darkMode') !== 'false') {
         document.documentElement.classList.add('dark');
-      } else if (!e.matches && localStorage.getItem('darkMode') !== 'true') {
-        document.documentElement.classList.remove('dark');
+      } else {
+        // Toujours conserver le mode sombre pour le thème cosmique
+        if (this.currentTheme === 'theme-cosmic') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
       }
     });
   }
