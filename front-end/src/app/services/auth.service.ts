@@ -1,16 +1,23 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { delay, tap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable, tap, map } from 'rxjs';
 import { User } from '../models/user.model';
+import { environment } from '../../environments/environment';
+
+interface AuthResponse {
+  user: User;
+  token: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private apiUrl = `${environment.apiUrl}/auth`;
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
   
-  constructor() {
+  constructor(private http: HttpClient) {
     // Check if user is already logged in
     const storedUser = localStorage.getItem('currentUser');
     if (storedUser) {
@@ -18,43 +25,35 @@ export class AuthService {
     }
   }
 
-  // In a real application, this would make an HTTP request to your backend
   login(email: string, password: string): Observable<User> {
-    // Mock login for demonstration
-    const mockUser: User = {
-      id: '1',
-      name: 'John Doe',
-      email: email,
-      profileImage: 'https://randomuser.me/api/portraits/men/32.jpg'
-    };
-
-    // Simulate API delay
-    return of(mockUser).pipe(
-      delay(800),
-      tap(user => {
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        this.currentUserSubject.next(user);
-      })
+    console.log('Attempting login for:', email);
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, { email, password }).pipe(
+      tap(response => {
+        console.log('Login response:', response);
+        const userWithToken = {
+          ...response.user,
+          token: response.token
+        };
+        localStorage.setItem('currentUser', JSON.stringify(userWithToken));
+        this.currentUserSubject.next(userWithToken);
+      }),
+      map(response => response.user)
     );
   }
 
-  // In a real application, this would make an HTTP request to your backend
   register(name: string, email: string, password: string): Observable<User> {
-    // Mock registration for demonstration
-    const mockUser: User = {
-      id: '1',
-      name: name,
-      email: email,
-      profileImage: 'https://randomuser.me/api/portraits/men/32.jpg'
-    };
-
-    // Simulate API delay
-    return of(mockUser).pipe(
-      delay(1000),
-      tap(user => {
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        this.currentUserSubject.next(user);
-      })
+    console.log('Attempting registration for:', email);
+    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, { name, email, password }).pipe(
+      tap(response => {
+        const userWithToken = {
+          ...response.user,
+          token: response.token
+        };
+        console.log('Storing user with token:', userWithToken);
+        localStorage.setItem('currentUser', JSON.stringify(userWithToken));
+        this.currentUserSubject.next(userWithToken);
+      }),
+      map(response => response.user)
     );
   }
 

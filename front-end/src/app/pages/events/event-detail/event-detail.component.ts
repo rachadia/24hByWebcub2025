@@ -129,7 +129,7 @@ import { ThemeService } from '../../../services/theme.service';
                   alt="Your profile image"
                   class="h-full w-full object-cover"
                 />
-                <span *ngIf="!currentUser.profileImage">{{ currentUser.name.charAt(0) }}</span>
+                <span *ngIf="!currentUser.profileImage">{{ currentUser.username.charAt(0) }}</span>
               </div>
               <div class="flex-1">
                 <form (ngSubmit)="addComment()">
@@ -274,10 +274,8 @@ export class EventDetailComponent implements OnInit {
 
     if (confirm('Are you sure you want to delete this event? This action cannot be undone.')) {
       this.eventService.deleteEvent(this.event.id).subscribe({
-        next: success => {
-          if (success) {
-            this.router.navigate(['/events']);
-          }
+        next: () => {
+          this.router.navigate(['/events']);
         },
         error: error => {
           console.error('Error deleting event:', error);
