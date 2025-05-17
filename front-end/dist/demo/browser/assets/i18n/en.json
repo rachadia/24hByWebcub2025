@@ -1,0 +1,147 @@
+{
+  "COMMON": {
+    "WELCOME": "Welcome",
+    "LANGUAGE": "Language",
+    "FRENCH": "French",
+    "ENGLISH": "English",
+    "REQUIRED": "is required",
+    "MIN_LENGTH": "must be at least 10 characters"
+  },
+  "NAVIGATION": {
+    "HOME": "Home",
+    "ABOUT": "About",
+    "CONTACT": "Contact",
+    "EVENTS": "My Events"
+  },
+  "AUTH": {
+    "LOGIN": "Log in",
+    "REGISTER": "Sign up",
+    "LOGOUT": "Sign out"
+  },
+  "EVENTS": {
+    "NEW": "New Event",
+    "MY_EVENTS": "My Events",
+    "LIST": {
+      "TITLE": "My Events",
+      "EMPTY": "You don't have any events yet",
+      "CREATE_FIRST": "Create my first event",
+      "SEARCH": "Search for an event...",
+      "SORT": {
+        "LABEL": "Sort by",
+        "DATE_ASC": "Date (oldest)",
+        "DATE_DESC": "Date (newest)",
+        "TITLE_ASC": "Title (A-Z)",
+        "TITLE_DESC": "Title (Z-A)"
+      }
+    },
+    "CREATE": {
+      "TITLE": "Create New Event",
+      "FORM": {
+        "TITLE": "Title",
+        "TITLE_PLACEHOLDER": "Give your event a title",
+        "DATE": "Date",
+        "DESCRIPTION": "Description",
+        "DESCRIPTION_PLACEHOLDER": "Describe your story...",
+        "CONTENT": "Content",
+        "CONTENT_PLACEHOLDER": "Describe what happened and how you feel about it...",
+        "EMOTION": "Emotion",
+        "EMOTION_PLACEHOLDER": "How are you feeling?",
+        "MEDIA": "Media",
+        "MEDIA_PLACEHOLDER": "Add photos or videos",
+        "SUBMIT": "Create Event",
+        "CANCEL": "Cancel",
+        "UPLOAD_CLICK": "Click to upload",
+        "UPLOAD_DRAG": "or drag and drop",
+        "UPLOAD_FORMATS": "SVG, PNG, JPG or GIF (MAX. 2MB)",
+        "UPLOAD_FUTURE": "(File uploads will be available in a future update)",
+        "DETECTED_MOOD": "Detected Mood",
+        "DETECTED_MOOD_DESC": "Based on your text, we've detected a {{emotion}} mood. Your event will be styled with a matching theme."
+      }
+    },
+    "DETAIL": {
+      "EDIT": "Edit",
+      "DELETE": "Delete",
+      "DELETE_CONFIRM": "Are you sure you want to delete this event?",
+      "BACK": "Back to list",
+      "SHARE": "Share",
+      "DATE": "Date",
+      "EMOTION": "Emotion",
+      "DESCRIPTION": "Description",
+      "MEDIA": "Media"
+    },
+    "EDIT": {
+      "TITLE": "Edit Event",
+      "FORM": {
+        "TITLE": "Title",
+        "TITLE_PLACEHOLDER": "Give your event a title",
+        "DATE": "Date",
+        "DESCRIPTION": "Description",
+        "DESCRIPTION_PLACEHOLDER": "Describe your event...",
+        "EMOTION": "Emotion",
+        "EMOTION_PLACEHOLDER": "How are you feeling?",
+        "MEDIA": "Media",
+        "MEDIA_PLACEHOLDER": "Add photos or videos",
+        "SUBMIT": "Save Changes",
+        "CANCEL": "Cancel"
+      }
+    },
+    "EMOTIONS": {
+      "JOY": "Joy",
+      "CONTENT": "Content",
+      "SADNESS": "Sadness",
+      "ANGER": "Anger",
+      "FEAR": "Fear"
+    }
+  },
+  "PROFILE": {
+    "TITLE": "Your Profile"
+  },
+  "HOME": {
+    "HERO": {
+      "TITLE_1": "Share Your Life's",
+      "TITLE_2": "Meaningful Moments",
+      "DESCRIPTION": "The End Page helps you document life's significant events, track your emotional journey, and reflect on your experiences over time."
+    },
+    "CTA": {
+      "GET_STARTED": "Get started",
+      "LOGIN": "Log in",
+      "CREATE_EVENT": "Create a new event",
+      "LEARN_MORE": "Learn more"
+    },
+    "FEATURES": {
+      "TITLE": "How it works",
+      "SUBTITLE": "A simple way to chronicle your emotional journey",
+      "FEATURE_1": {
+        "TITLE": "Share Your Experiences",
+        "DESCRIPTION": "Document significant moments, attach media, and express your feelings in a secure personal space."
+      },
+      "FEATURE_2": {
+        "TITLE": "Emotion Detection",
+        "DESCRIPTION": "Our platform analyzes your entries to identify emotions and suggests visual themes to match your mood."
+      },
+      "FEATURE_3": {
+        "TITLE": "Track Your Journey",
+        "DESCRIPTION": "Revisit past events, reflect on your growth, and see how your emotions evolve over time."
+      }
+    },
+    "JOURNEY": {
+      "TITLE_1": "Ready to start your journey?",
+      "TITLE_2": "Create your account today."
+    }
+  },
+  "welcome": "Welcome",
+  "home": "Home",
+  "about": "About",
+  "contact": "Contact",
+  "language": "Language",
+  "login": "Log in",
+  "signup": "Sign up",
+  "signout": "Sign out",
+  "profile": "Your Profile",
+  "myEvents": "My Events",
+  "newEvent": "New Event",
+  "notifications": "Notifications",
+  "settings": "Settings",
+  "darkMode": "Dark Mode",
+  "lightMode": "Light Mode"
+} 
