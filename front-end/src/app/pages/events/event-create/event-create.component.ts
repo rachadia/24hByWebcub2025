@@ -4,6 +4,10 @@ import { RouterModule, Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EventService } from '../../../services/event.service';
 import { EmotionService, Emotion } from '../../../services/emotion.service';
+import { NlpService } from '../../../services/nlp.service';
+import { Observable } from 'rxjs';
+import { MoodAnalysisResult, MoodAnalysisService } from '../../../services/mood-analysis.service';
+import { SentimentAnalysisService } from '../../../services/sentiment-analysis.service';
 
 @Component({
   selector: 'app-event-create',
@@ -47,6 +51,32 @@ import { EmotionService, Emotion } from '../../../services/emotion.service';
           </div>
 
           <div class="mb-6">
+            <label for="description" class="label">Description</label>
+            <textarea
+              id="description"
+              formControlName="description"
+              rows="3"
+              class="textarea"
+              placeholder="Give a brief description of your event..."
+              [ngClass]="{
+                'border-red-500 dark:border-red-400': 
+                  eventForm.get('description')?.invalid && 
+                  (eventForm.get('description')?.dirty || eventForm.get('description')?.touched)
+              }"
+            ></textarea>
+            <div 
+              *ngIf="eventForm.get('description')?.invalid && 
+                  (eventForm.get('description')?.dirty || eventForm.get('description')?.touched)"
+              class="mt-1 text-sm text-red-600 dark:text-red-400"
+            >
+              <div *ngIf="eventForm.get('description')?.errors?.['required']">Description is required</div>
+              <div *ngIf="eventForm.get('description')?.errors?.['minlength']">
+                Description must be at least 10 characters
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-6">
             <label for="content" class="label">Your Event</label>
             <textarea
               id="content"
@@ -69,6 +99,34 @@ import { EmotionService, Emotion } from '../../../services/emotion.service';
               <div *ngIf="eventForm.get('content')?.errors?.['minlength']">
                 Content must be at least 10 characters
               </div>
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <label for="emotion" class="label">How are you feeling?</label>
+            <select
+              id="emotion"
+              formControlName="emotion"
+              class="input"
+              [ngClass]="{
+                'border-red-500 dark:border-red-400': 
+                  eventForm.get('emotion')?.invalid && 
+                  (eventForm.get('emotion')?.dirty || eventForm.get('emotion')?.touched)
+              }"
+            >
+              <option value="">Select your mood</option>
+              <option value="joy">😊 Joy</option>
+              <option value="content">😌 Content</option>
+              <option value="sadness">😢 Sadness</option>
+              <option value="anger">😡 Anger</option>
+              <option value="fear">😨 Fear</option>
+            </select>
+            <div 
+              *ngIf="eventForm.get('emotion')?.invalid && 
+                  (eventForm.get('emotion')?.dirty || eventForm.get('emotion')?.touched)"
+              class="mt-1 text-sm text-red-600 dark:text-red-400"
+            >
+              <div *ngIf="eventForm.get('emotion')?.errors?.['required']">Please select your mood</div>
             </div>
           </div>
 
@@ -180,36 +238,61 @@ export class EventCreateComponent {
   detectedEmotion: Emotion | '' = '';
   emotionDisplayName = '';
   emotionIcon = '';
+  isProcessing$: Observable<boolean>;
 
   constructor(
     private formBuilder: FormBuilder,
     private eventService: EventService,
     private emotionService: EmotionService,
-    private router: Router
+    private router: Router,
+    private nlpService: NlpService,
   ) {
+    this.isProcessing$ = this.nlpService.isProcessing();
     this.eventForm = this.formBuilder.group({
       title: ['', Validators.required],
+      description: ['', [Validators.required, Validators.minLength(10)]],
       content: ['', [Validators.required, Validators.minLength(10)]],
+      emotion: ['', Validators.required],
       attachments: [[]]
     });
 
     // Listen to content changes to detect emotion
-    this.eventForm.get('content')?.valueChanges.subscribe(content => {
+    this.eventForm.get('content')?.valueChanges.subscribe(async content => {
       if (content && content.length > 20) {
-        this.detectedEmotion = this.emotionService.detectEmotion(content);
-        this.emotionDisplayName = this.emotionService.getEmotionDisplayName(this.detectedEmotion);
-        this.emotionIcon = this.emotionService.getEmotionIcon(this.detectedEmotion);
+        console.log(this.eventForm.value.content);
+        await this.nlpService.processText(content);
       } else {
         this.detectedEmotion = '';
       }
     });
+
+    // Listen to emotion selection changes
+    this.eventForm.get('emotion')?.valueChanges.subscribe(emotion => {
+      if (emotion) {
+        this.detectedEmotion = emotion as Emotion;
+        this.emotionDisplayName = this.emotionService.getEmotionDisplayName(emotion as Emotion);
+        this.emotionIcon = this.emotionService.getEmotionIcon(emotion as Emotion);
+      }
+    });
   }
 
-  onSubmit(): void {
+  ngOnInit() {
+    // S'abonner aux réponses du service NLP
+    this.nlpService.getResponse().subscribe(response => {
+      if (response) {
+        console.log("response: ",response);
+        this.detectedEmotion = this.emotionService.detectEmotion(response);
+        this.emotionDisplayName = this.emotionService.getEmotionDisplayName(this.detectedEmotion);
+        this.emotionIcon = this.emotionService.getEmotionIcon(this.detectedEmotion);
+      }
+    });
+  }
+
+  onSubmit() {
     if (this.eventForm.invalid) {
       return;
     }
-
+      
     this.isSubmitting = true;
 
     this.eventService.createEvent(this.eventForm.value).subscribe({

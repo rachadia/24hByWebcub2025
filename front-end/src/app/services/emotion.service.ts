@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-export type Emotion = 'joy' | 'sadness' | 'anger' | 'fear';
+export type Emotion = 'joy' | 'sadness' | 'anger' | 'fear' | 'positif' | 'negative';
 
 @Injectable({
   providedIn: 'root'
@@ -38,11 +38,11 @@ export class EmotionService {
     // Simple keyword-based emotion detection
     const lowerText = text.toLowerCase();
     
-    if (lowerText.includes('happy') || lowerText.includes('joy') || lowerText.includes('excited')) {
+    if (lowerText.includes('happy') || lowerText.includes('joy') || lowerText.includes('excited') || lowerText.includes('positif')) {
       return 'joy';
-    } else if (lowerText.includes('sad') || lowerText.includes('depressed') || lowerText.includes('unhappy')) {
+    } else if (lowerText.includes('sad') || lowerText.includes('depressed') || lowerText.includes('unhappy') || lowerText.includes('negative')) {
       return 'sadness';
-    } else if (lowerText.includes('angry') || lowerText.includes('furious') || lowerText.includes('mad')) {
+    } else if (lowerText.includes('angry') || lowerText.includes('furious') || lowerText.includes('mad') || lowerText.includes('colere') || lowerText.includes('colère') || lowerText.includes('negatif')) {
       return 'anger';
     } else if (lowerText.includes('scared') || lowerText.includes('afraid') || lowerText.includes('fearful')) {
       return 'fear';

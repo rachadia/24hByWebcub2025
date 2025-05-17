@@ -1,0 +1,17 @@
+{
+  "welcome": "Bienvenue",
+  "home": "Accueil",
+  "about": "À propos",
+  "contact": "Contact",
+  "language": "Langue",
+  "login": "Connexion",
+  "signup": "Inscription",
+  "signout": "Déconnexion",
+  "profile": "Votre Profil",
+  "myEvents": "Mes Événements",
+  "newEvent": "Nouvel Événement",
+  "notifications": "Notifications",
+  "settings": "Paramètres",
+  "darkMode": "Mode Sombre",
+  "lightMode": "Mode Clair"
+} 

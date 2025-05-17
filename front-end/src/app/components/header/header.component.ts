@@ -194,4 +194,9 @@ export class HeaderComponent implements OnInit {
     this.themeService.toggleDarkMode();
     this.isDarkMode = this.themeService.isDarkMode();
   }
+
+  setTheme(emotion: string): void {
+    this.themeService.setTheme(emotion);
+    this.isDarkMode = this.themeService.isDarkMode();
+  }
 }
