@@ -39,6 +39,29 @@ export class ThemeService {
     }
   }
 
+  personalTheme(emotion: string): void {
+    switch (emotion) {
+      case 'joy':
+        this.themeSubject.next('joy');
+        document.documentElement.classList.remove('sadness');
+        document.documentElement.classList.remove('anger');
+        document.documentElement.classList.add('joy');
+        break;
+      case 'sadness':
+        this.themeSubject.next('sadness');
+    //    document.documentElement.classList.remove('dark');
+        document.documentElement.classList.remove('joy');
+        document.documentElement.classList.remove('anger');
+        break;
+      case 'anger':
+        this.themeSubject.next('anger');
+        document.documentElement.classList.remove('sadness');
+        document.documentElement.classList.remove('joy');
+        document.documentElement.classList.add('anger');
+        break;
+    }
+  }
+
   isDarkMode(): boolean {
     return document.documentElement.classList.contains('dark');
   }

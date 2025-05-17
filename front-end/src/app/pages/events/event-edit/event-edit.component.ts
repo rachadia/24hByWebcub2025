@@ -206,7 +206,8 @@ export class EventEditComponent implements OnInit {
             title: event.title,
             content: event.content
           });
-          
+
+
           this.detectedEmotion = event.emotion;
           this.emotionDisplayName = this.emotionService.getEmotionDisplayName(this.detectedEmotion as Emotion);
           this.emotionIcon = this.emotionService.getEmotionIcon(this.detectedEmotion as Emotion);

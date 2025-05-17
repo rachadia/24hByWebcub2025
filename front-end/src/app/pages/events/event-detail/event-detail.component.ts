@@ -9,6 +9,7 @@ import { User } from '../../../models/user.model';
 import { EmotionService } from '../../../services/emotion.service';
 import { THEMES } from '../../../utils/theme-utils';
 import { appliquerTheme } from '../../../utils/theme-utils';
+import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   selector: 'app-event-detail',
@@ -206,7 +207,9 @@ export class EventDetailComponent implements OnInit {
     private router: Router,
     private eventService: EventService,
     private authService: AuthService,
-    private emotionService: EmotionService
+    private emotionService: EmotionService,
+
+    private themeService: ThemeService
   ) {}
 
   ngOnInit(): void {
@@ -223,6 +226,16 @@ export class EventDetailComponent implements OnInit {
       next: event => {
         this.event = event;
         this.isLoading = false;
+        console.log(this.event);
+        switch (this.event?.emotion) {
+          case 'joy':
+            this.themeService.setTheme('joy');
+            break;
+          case 'sadness':
+            this.themeService.setTheme('sadness');
+            break;
+        }
+        
       },
       error: error => {
         console.error('Error loading event:', error);
@@ -233,7 +246,6 @@ export class EventDetailComponent implements OnInit {
 
   likeEvent(): void {
     if (!this.event) return;
-
     this.eventService.toggleLike(this.event.id).subscribe({
       next: updatedEvent => {
         this.event = updatedEvent;

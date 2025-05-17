@@ -1,0 +1,17 @@
+{
+  "welcome": "Welcome",
+  "home": "Home",
+  "about": "About",
+  "contact": "Contact",
+  "language": "Language",
+  "login": "Log in",
+  "signup": "Sign up",
+  "signout": "Sign out",
+  "profile": "Your Profile",
+  "myEvents": "My Events",
+  "newEvent": "New Event",
+  "notifications": "Notifications",
+  "settings": "Settings",
+  "darkMode": "Dark Mode",
+  "lightMode": "Light Mode"
+} 
