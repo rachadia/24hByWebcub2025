@@ -5,7 +5,6 @@ import { AuthService } from '../../services/auth.service';
 import { NotificationService } from '../../services/notification.service';
 import { ThemeService } from '../../services/theme.service';
 import { User } from '../../models/user.model';
-import { appliquerTheme, THEMES } from '../../utils/theme-utils';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -135,12 +134,6 @@ import { TranslateModule } from '@ngx-translate/core';
                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
                 >
                   {{ 'EVENTS.MY_EVENTS' | translate }}
-                </a>
-                <a
-                  routerLink="/profile"
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-                >
-                  Personnaliser le thème
                 </a>
                 <a
                   (click)="logout(); $event.preventDefault()"
