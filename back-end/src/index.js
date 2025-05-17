@@ -1,20 +1,21 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import session from 'express-session';
-import flash from 'connect-flash';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import bodyParser from 'body-parser';
-import { rateLimit } from 'express-rate-limit';
+const express = require('express');
+const dotenv = require('dotenv');
+const session = require('express-session');
+const flash = require('connect-flash');
+const path = require('path');
+const fileURLToPath = require('url');
+const bodyParser = require('body-parser');
+const rateLimit = require('express-rate-limit');
 
 // Import routes
-import authRoutes from './routes/auth.js';
-import eventsRoutes from './routes/events.js';
-import userRoutes from './routes/users.js';
-import apiRoutes from './routes/api.js';
+
+const authRoutes = require('./routes/auth.js');
+const eventsRoutes = require('./routes/events.js');
+const userRoutes = require('./routes/users.js');
+const apiRoutes = require('./routes/api.js');
 
 // Import database connection
-import { sequelize } from './config/database.js';
+const sequelize = require('./config/database.js');
 import './models/associations.js';
 
 // Load environment variables
