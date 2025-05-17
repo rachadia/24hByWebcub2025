@@ -1,106 +1,69 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const session = require('express-session');
-const flash = require('connect-flash');
-const path = require('path');
-const fileURLToPath = require('url');
-const bodyParser = require('body-parser');
-const rateLimit = require('express-rate-limit');
-
-// Import routes
-
-const authRoutes = require('./routes/auth.js');
-const eventsRoutes = require('./routes/events.js');
-const userRoutes = require('./routes/users.js');
-const apiRoutes = require('./routes/api.js');
-
-// Import database connection
-const sequelize = require('./config/database.js');
-require('./models/associations.js');
+import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import morgan from 'morgan';
+import dotenv from 'dotenv';
+import swaggerJsDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 
 // Load environment variables
 dotenv.config();
 
-// Create Express app
+// Import routes
+import authRoutes from './routes/auth.routes.js';
+import userRoutes from './routes/user.routes.js';
+import { errorHandler } from './middleware/error.middleware.js';
+import { notFound } from './middleware/notFound.middleware.js';
+
+// Initialize express app
 const app = express();
 const PORT = process.env.PORT || 3000;
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
-// Rate limiting to prevent brute force attacks
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  standardHeaders: true,
-  legacyHeaders: false,
-});
+// Swagger configuration
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Express MySQL Auth API',
+      version: '1.0.0',
+      description: 'API documentation for Express MySQL Authentication system',
+    },
+    servers: [
+      {
+        url: `http://localhost:${PORT}`,
+        description: 'Development server',
+      },
+    ],
+  },
+  apis: ['./src/routes/*.js'], // Path to the API docs
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 // Middleware
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '../public')));
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
-app.use(limiter);
+app.use(cors());
+app.use(helmet());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(morgan('dev'));
 
-// Set view engine
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-
-// Session configuration
-app.use(session({
-  secret: process.env.JWT_SECRET || 'secret_key',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { 
-    secure: process.env.NODE_ENV === 'production',
-    maxAge: 24 * 60 * 60 * 1000 // 24 hours
-  }
-}));
-
-// Flash messages
-app.use(flash());
-
-// Global variables middleware
-app.use((req, res, next) => {
-  res.locals.success_msg = req.flash('success_msg');
-  res.locals.error_msg = req.flash('error_msg');
-  res.locals.error = req.flash('error');
-  res.locals.user = req.session.user || null;
-  next();
-});
+// Swagger API docs
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Routes
-app.use('/auth', authRoutes);
-app.use('/events', eventsRoutes);
-app.use('/users', userRoutes);
-app.use('/api', apiRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 
-// Home route
-app.get('/', (req, res) => {
-  res.render('home', { 
-    title: 'The End Page - Share Your Life\'s Moments',
-    user: req.session.user
-  });
+// Health check route
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok', message: 'Server is running' });
 });
 
-// 404 Route
-app.use((req, res) => {
-  res.status(404).render('404', { 
-    title: 'Page Not Found',
-    user: req.session.user
-  });
+// Error handling middlewares
+app.use(notFound);
+app.use(errorHandler);
+
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
-
-// Database connection and server start
-sequelize.sync({ alter: process.env.NODE_ENV === 'development' })
-  .then(() => {
-    console.log('Database connected successfully');
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-  });
-
-export default app;
