@@ -10,7 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
   imports: [CommonModule, RouterModule, TranslateModule],
   template: `
-    <div class="theme-neutre relative overflow-hidden py-12">
+    <div class="theme-cosmic relative overflow-hidden py-12">
       <!-- Hero section -->
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="text-center">
@@ -25,13 +25,13 @@ import { TranslateModule } from '@ngx-translate/core';
             <div *ngIf="!isLoggedIn; else createEventButton" class="space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5 sm:space-y-0">
               <a
                 routerLink="/auth/register"
-                class="flex items-center justify-center rounded-md border border-transparent bg-primary-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-primary-700 dark:bg-primary-700 dark:hover:bg-primary-600 sm:px-8"
+                class="btn-cosmic flex items-center justify-center rounded-md border border-transparent px-4 py-3 text-base font-medium text-white shadow-sm sm:px-8"
               >
                 {{ 'HOME.CTA.GET_STARTED' | translate }}
               </a>
               <a
                 routerLink="/auth/login"
-                class="flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-3 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700 sm:px-8"
+                class="btn-cosmic-outline flex items-center justify-center rounded-md px-4 py-3 text-base font-medium shadow-sm sm:px-8"
               >
                 {{ 'HOME.CTA.LOGIN' | translate }}
               </a>
@@ -39,7 +39,7 @@ import { TranslateModule } from '@ngx-translate/core';
             <ng-template #createEventButton>
               <a
                 routerLink="/events/new"
-                class="flex items-center justify-center rounded-md border border-transparent bg-primary-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-primary-700 dark:bg-primary-700 dark:hover:bg-primary-600"
+                class="btn-cosmic flex items-center justify-center rounded-md border border-transparent px-4 py-3 text-base font-medium text-white shadow-sm"
               >
                 {{ 'HOME.CTA.CREATE_EVENT' | translate }}
               </a>
@@ -63,8 +63,8 @@ import { TranslateModule } from '@ngx-translate/core';
           <div class="mt-16">
             <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
               <!-- Feature 1 -->
-              <div class="relative rounded-lg bg-white p-6 shadow-elevation-1 dark:bg-gray-800">
-                <div class="absolute -top-3 left-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary-600 dark:bg-primary-700">
+              <div class="relative rounded-lg p-6 neo-blur">
+                <div class="absolute -top-3 left-3 flex h-10 w-10 items-center justify-center rounded-full bg-endpage-pink">
                   <span class="text-xl">✍️</span>
                 </div>
                 <h3 class="mt-8 text-xl font-semibold text-gray-900 dark:text-white">{{ 'HOME.FEATURES.FEATURE_1.TITLE' | translate }}</h3>
@@ -74,8 +74,8 @@ import { TranslateModule } from '@ngx-translate/core';
               </div>
 
               <!-- Feature 2 -->
-              <div class="relative rounded-lg bg-white p-6 shadow-elevation-1 dark:bg-gray-800">
-                <div class="absolute -top-3 left-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary-600 dark:bg-primary-700">
+              <div class="relative rounded-lg p-6 neo-blur">
+                <div class="absolute -top-3 left-3 flex h-10 w-10 items-center justify-center rounded-full bg-endpage-purple">
                   <span class="text-xl">🧠</span>
                 </div>
                 <h3 class="mt-8 text-xl font-semibold text-gray-900 dark:text-white">{{ 'HOME.FEATURES.FEATURE_2.TITLE' | translate }}</h3>
@@ -85,8 +85,8 @@ import { TranslateModule } from '@ngx-translate/core';
               </div>
 
               <!-- Feature 3 -->
-              <div class="relative rounded-lg bg-white p-6 shadow-elevation-1 dark:bg-gray-800">
-                <div class="absolute -top-3 left-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary-600 dark:bg-primary-700">
+              <div class="relative rounded-lg p-6 neo-blur">
+                <div class="absolute -top-3 left-3 flex h-10 w-10 items-center justify-center rounded-full bg-endpage-pink">
                   <span class="text-xl">📊</span>
                 </div>
                 <h3 class="mt-8 text-xl font-semibold text-gray-900 dark:text-white">{{ 'HOME.FEATURES.FEATURE_3.TITLE' | translate }}</h3>
@@ -100,7 +100,7 @@ import { TranslateModule } from '@ngx-translate/core';
       </div>
 
       <!-- CTA section -->
-      <div class="mt-24 bg-primary-50 dark:bg-gray-800/50">
+      <div class="mt-24 bg-endpage-dark bg-opacity-50 backdrop-blur-sm">
         <div class="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:flex lg:items-center lg:justify-between lg:py-16 lg:px-8">
           <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
             <span class="block">{{ 'HOME.JOURNEY.TITLE_1' | translate }}</span>
@@ -110,7 +110,7 @@ import { TranslateModule } from '@ngx-translate/core';
             <div class="inline-flex rounded-md shadow">
               <a
                 routerLink="/auth/register"
-                class="inline-flex items-center justify-center rounded-md border border-transparent bg-primary-600 px-5 py-3 text-base font-medium text-white hover:bg-primary-700 dark:bg-primary-700 dark:hover:bg-primary-600"
+                class="btn-cosmic inline-flex items-center justify-center rounded-md border border-transparent px-5 py-3 text-base font-medium text-white"
               >
                 {{ 'HOME.CTA.GET_STARTED' | translate }}
               </a>
@@ -118,7 +118,7 @@ import { TranslateModule } from '@ngx-translate/core';
             <div class="ml-3 inline-flex rounded-md shadow">
               <a
                 routerLink="/auth/login"
-                class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-5 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+                class="btn-cosmic-outline inline-flex items-center justify-center rounded-md px-5 py-3 text-base font-medium"
               >
                 {{ 'HOME.CTA.LEARN_MORE' | translate }}
               </a>

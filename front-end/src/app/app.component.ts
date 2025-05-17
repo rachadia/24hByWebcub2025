@@ -13,7 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
   imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent, TranslateModule],
   template: `
-    <div class="flex min-h-screen flex-col" [ngClass]="currentTheme">
+    <div class="cosmic-body flex min-h-screen flex-col" [ngClass]="currentTheme || 'theme-cosmic'">
       <app-header></app-header>
       <main class="flex-1 px-4 py-6 sm:px-6 lg:px-8">
         <router-outlet></router-outlet>

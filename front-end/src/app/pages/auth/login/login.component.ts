@@ -9,15 +9,15 @@ import { AuthService } from '../../../services/auth.service';
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
   template: `
-    <div class="theme-neutre flex min-h-[80vh] items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div class="w-full max-w-md space-y-8">
+    <div class="theme-cosmic flex min-h-[80vh] items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div class="w-full max-w-md space-y-8 neo-blur rounded-xl p-8">
         <div>
-          <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
-            Connectez-vous à votre compte
+          <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-white font-cosmic">
+            <span class="text-gradient glow">Connectez-vous</span> à votre compte
           </h2>
-          <p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+          <p class="mt-2 text-center text-sm text-gray-300">
             Ou
-            <a routerLink="/auth/register" class="font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400">
+            <a routerLink="/auth/register" class="font-medium text-endpage-pink hover:text-endpage-purple">
               créez un nouveau compte
             </a>
           </p>
@@ -34,10 +34,10 @@ import { AuthService } from '../../../services/auth.service';
                 formControlName="email"
                 autocomplete="email"
                 required
-                class="input relative block w-full rounded-t-md border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-primary-500 focus:outline-none focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 sm:text-sm"
-                placeholder="Email address"
+                class="relative block w-full rounded-t-md border border-gray-700 bg-endpage-dark bg-opacity-50 px-3 py-2 text-white placeholder-gray-400 focus:z-10 focus:border-endpage-pink focus:outline-none focus:ring-1 focus:ring-endpage-pink sm:text-sm"
+                placeholder="Adresse email"
                 [ngClass]="{
-                  'border-red-500 dark:border-red-400': 
+                  'border-endpage-pink': 
                     loginForm.get('email')?.invalid && 
                     (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)
                 }"
@@ -45,10 +45,10 @@ import { AuthService } from '../../../services/auth.service';
               <div 
                 *ngIf="loginForm.get('email')?.invalid && 
                       (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)"
-                class="mt-1 text-sm text-red-600 dark:text-red-400"
+                class="mt-1 text-sm text-endpage-pink"
               >
-                <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</div>
-                <div *ngIf="loginForm.get('email')?.errors?.['email']">Must be a valid email address</div>
+                <div *ngIf="loginForm.get('email')?.errors?.['required']">Email est requis</div>
+                <div *ngIf="loginForm.get('email')?.errors?.['email']">Format d'email invalide</div>
               </div>
             </div>
             <div>
@@ -60,10 +60,10 @@ import { AuthService } from '../../../services/auth.service';
                 formControlName="password"
                 autocomplete="current-password"
                 required
-                class="input relative block w-full rounded-b-md border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-primary-500 focus:outline-none focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 sm:text-sm"
-                placeholder="Password"
+                class="relative block w-full rounded-b-md border border-gray-700 bg-endpage-dark bg-opacity-50 px-3 py-2 text-white placeholder-gray-400 focus:z-10 focus:border-endpage-pink focus:outline-none focus:ring-1 focus:ring-endpage-pink sm:text-sm"
+                placeholder="Mot de passe"
                 [ngClass]="{
-                  'border-red-500 dark:border-red-400': 
+                  'border-endpage-pink': 
                     loginForm.get('password')?.invalid && 
                     (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)
                 }"
@@ -71,11 +71,11 @@ import { AuthService } from '../../../services/auth.service';
               <div 
                 *ngIf="loginForm.get('password')?.invalid && 
                       (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)"
-                class="mt-1 text-sm text-red-600 dark:text-red-400"
+                class="mt-1 text-sm text-endpage-pink"
               >
-                <div *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</div>
+                <div *ngIf="loginForm.get('password')?.errors?.['required']">Mot de passe est requis</div>
                 <div *ngIf="loginForm.get('password')?.errors?.['minlength']">
-                  Password must be at least 6 characters
+                  Le mot de passe doit contenir au moins 6 caractères
                 </div>
               </div>
             </div>
@@ -87,16 +87,16 @@ import { AuthService } from '../../../services/auth.service';
                 id="remember-me"
                 name="remember-me"
                 type="checkbox"
-                class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700"
+                class="h-4 w-4 rounded border-gray-700 bg-endpage-dark text-endpage-pink focus:ring-endpage-pink"
               />
-              <label for="remember-me" class="ml-2 block text-sm text-gray-900 dark:text-gray-300">
-                Remember me
+              <label for="remember-me" class="ml-2 block text-sm text-gray-300">
+                Se souvenir de moi
               </label>
             </div>
 
             <div class="text-sm">
-              <a href="#" class="font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400">
-                Forgot your password?
+              <a href="#" class="font-medium text-endpage-pink hover:text-endpage-purple">
+                Mot de passe oublié ?
               </a>
             </div>
           </div>
@@ -105,7 +105,7 @@ import { AuthService } from '../../../services/auth.service';
             <button
               type="submit"
               [disabled]="loginForm.invalid || isLoading"
-              class="group relative flex w-full justify-center rounded-md border border-transparent bg-primary-600 py-2 px-4 text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-70 dark:bg-primary-700 dark:hover:bg-primary-600"
+              class="btn-cosmic group relative flex w-full justify-center rounded-md py-2 px-4 text-sm font-medium text-white disabled:opacity-70"
             >
               <span *ngIf="isLoading" class="absolute inset-y-0 left-0 flex items-center pl-3">
                 <svg
@@ -129,15 +129,15 @@ import { AuthService } from '../../../services/auth.service';
                   ></path>
                 </svg>
               </span>
-              Sign in
+              Connexion
             </button>
           </div>
 
-          <div *ngIf="errorMessage" class="rounded-md bg-red-50 p-4 dark:bg-red-900/20">
+          <div *ngIf="errorMessage" class="rounded-md bg-endpage-pink bg-opacity-10 p-4">
             <div class="flex">
               <div class="flex-shrink-0">
                 <svg
-                  class="h-5 w-5 text-red-400"
+                  class="h-5 w-5 text-endpage-pink"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                   fill="currentColor"
@@ -151,7 +151,7 @@ import { AuthService } from '../../../services/auth.service';
                 </svg>
               </div>
               <div class="ml-3">
-                <h3 class="text-sm font-medium text-red-800 dark:text-red-200">{{ errorMessage }}</h3>
+                <h3 class="text-sm font-medium text-endpage-pink">{{ errorMessage }}</h3>
               </div>
             </div>
           </div>
@@ -197,7 +197,7 @@ export class LoginComponent {
         this.router.navigateByUrl(this.returnUrl);
       },
       error: err => {
-        this.errorMessage = err.message || 'An error occurred during login. Please try again.';
+        this.errorMessage = err.message || 'Une erreur est survenue lors de la connexion. Veuillez réessayer.';
         this.isLoading = false;
       },
       complete: () => {
