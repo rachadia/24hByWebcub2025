@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # Service pour l'application (frontend + backend)
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000" # Port pour le backend
+      - "4200:4200" # Port pour le frontend
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=lesmakiscodeu_the_end_page_db
+      - DB_USER=lesmakiscodeu
+      - DB_PASSWORD=LesM4ki!
+    depends_on:
+      - db
+    networks:
+      - app-network
+    volumes:
+      - ./front-end:/app/front-end
+      - ./back-end:/app/back-end
+      - /app/front-end/node_modules
+      - /app/back-end/node_modules
+
+  # Service pour la base de données MySQL
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=lesmakiscodeu_the_end_page_db
+      - MYSQL_USER=lesmakiscodeu
+      - MYSQL_PASSWORD=LesM4ki!
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - app-network
+    command: --default-authentication-plugin=mysql_native_password
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql-data: 

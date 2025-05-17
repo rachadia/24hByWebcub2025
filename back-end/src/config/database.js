@@ -7,7 +7,7 @@ dotenv.config();
 // Database configuration
 const sequelize = new Sequelize(
   process.env.DB_NAME || "lesmakiscodeu_the_end_page_db",
-  process.env.DB_USER || "Makiscodeur",
+  process.env.DB_USER || "lesmakiscodeu",
   process.env.DB_PASSWORD || "LesM4ki!",
   {
     host: process.env.DB_HOST || "192.168.161.12:3306", 
