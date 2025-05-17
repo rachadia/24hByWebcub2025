@@ -146,9 +146,6 @@
   @apply bg-gradient-to-br from-intensity-50 to-intensity-100 dark:from-intensity-950 dark:to-intensity-900;
 }
 /* Thème TheEnd.page */
-.theme-cosmic {
-  @apply bg-cosmic-gradient;
-}
 
 /* Transitions and animations */
 .page-transition-enter {
