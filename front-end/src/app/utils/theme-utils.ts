@@ -28,4 +28,23 @@ export const THEMES = {
   DARK_PASSION: 'dark-passion',
   LIGHT_MELANCHOLY: 'light-melancholy',
   LIGHT_NEUTRAL: 'light-neutral'
-}; 
+};
+
+export function updateNeonColorForTheme(themeName: string): void {
+  const themeColorMap: Record<string, string> = {
+    'joy': '--joy-color-rgb',
+    'sadness': '--sadness-color-rgb',
+    'anger': '--anger-color-rgb',
+    'fear': '--fear-color-rgb',
+    'neutre': '--neutre-color-rgb',
+    'intensity': '--intensity-color-rgb',
+    'default': '--primary-color-rgb'
+  };
+
+  // Récupérer la variable CSS associée au thème
+  const colorVariable = themeColorMap[themeName] || themeColorMap['default'];
+  const colorValue = getComputedStyle(document.documentElement).getPropertyValue(colorVariable);
+
+  // Appliquer cette couleur comme couleur primaire pour les effets néon
+  document.documentElement.style.setProperty('--current-theme-rgb', colorValue);
+} 

@@ -4,6 +4,20 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --endpage-pink: #ff1f75;
+  --endpage-purple: #9c4dff;
+  
+  /* Couleurs en RGB pour les effets de glow */
+  --primary-color-rgb: 255, 31, 117;
+  --joy-color-rgb: 250, 204, 21; 
+  --sadness-color-rgb: 96, 165, 250;
+  --anger-color-rgb: 239, 68, 68;
+  --fear-color-rgb: 139, 92, 246; 
+  --neutre-color-rgb: 107, 114, 128;
+  --intensity-color-rgb: 248, 113, 113;
+}
+
 @layer base {
   body {
     @apply bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans;
@@ -118,6 +132,60 @@
   .avatar-xl {
     @apply h-16 w-16;
   }
+  
+  /* Effets néon */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[var(--endpage-pink)] to-[var(--endpage-purple)];
+  }
+
+  .glow {
+    text-shadow: 0 0 10px rgba(255, 31, 117, 0.7);
+  }
+
+  .neon-text {
+    @apply text-gradient glow;
+  }
+
+  .neon-box {
+    @apply border border-[var(--endpage-pink)]/50 shadow-[0_0_10px_rgba(255,31,117,0.7)] rounded-md;
+  }
+
+  .neon-button {
+    @apply bg-[var(--endpage-pink)] hover:bg-[var(--endpage-pink)]/90 text-white;
+  }
+  
+  /* Animations pour les effets néon */
+  @keyframes subtle-pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.92;
+    }
+  }
+
+  .subtle-neon-button {
+    @apply bg-primary-600 text-white rounded-md shadow-md hover:bg-primary-700 transition-all duration-300;
+    box-shadow: 0 0 6px rgba(var(--current-theme-rgb, var(--primary-color-rgb)), 0.4);
+    animation: subtle-pulse 3s infinite;
+  }
+
+  .subtle-neon-button:hover {
+    box-shadow: 0 0 12px rgba(var(--current-theme-rgb, var(--primary-color-rgb)), 0.5);
+    animation: none;
+  }
+  
+  /* Variante avec bordure néon */
+  .subtle-neon-button-outlined {
+    @apply bg-transparent border border-primary-500 text-primary-600 dark:text-primary-400 rounded-md shadow-sm hover:bg-primary-500/10 transition-all duration-300;
+    box-shadow: 0 0 3px rgba(var(--current-theme-rgb, var(--primary-color-rgb)), 0.3);
+    animation: subtle-pulse 4s infinite;
+  }
+  
+  .subtle-neon-button-outlined:hover {
+    box-shadow: 0 0 8px rgba(var(--current-theme-rgb, var(--primary-color-rgb)), 0.4);
+    animation: none;
+  }
 }
 
 .theme-joy {
@@ -183,4 +251,74 @@
 
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-gray-400 dark:bg-gray-500;
+}
+
+/* Arrière-plan cosmique inspiré de neon-effects.css */
+.cosmic-bg {
+  background: radial-gradient(circle at 50% 50%, #1D1A3A 0%, #0F0C1D 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.cosmic-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  z-index: 0;
+}
+
+/* Animation d'étoiles scintillantes */
+@keyframes star-twinkle {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.star {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.star-1 {
+  width: 2px;
+  height: 2px;
+  animation: star-twinkle 3s infinite ease-in-out;
+}
+
+.star-2 {
+  width: 3px;
+  height: 3px;
+  animation: star-twinkle 5s infinite ease-in-out;
+}
+
+.star-3 {
+  width: 1px;
+  height: 1px;
+  animation: star-twinkle 4s infinite ease-in-out;
+}
+
+/* Font Space Grotesk */
+@font-face {
+  font-family: 'SpaceGrotesk';
+  src: url('https://fonts.gstatic.com/s/spacegrotesk/v13/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj7oUXskPMBBSSJLm2E.woff2') format('woff2');
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Ajout de la classe pour mettre Space Grotesk comme police par défaut */
+.space-font {
+  font-family: 'SpaceGrotesk', sans-serif;
 }

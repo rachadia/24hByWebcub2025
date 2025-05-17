@@ -6,19 +6,18 @@ import { NotificationService } from '../../services/notification.service';
 import { ThemeService } from '../../services/theme.service';
 import { User } from '../../models/user.model';
 import { appliquerTheme, THEMES } from '../../utils/theme-utils';
+import { TheEndLogoComponent } from '../the-end-logo/the-end-logo.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TheEndLogoComponent],
   template: `
     <header class="bg-white shadow transition-colors dark:bg-gray-800">
       <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <!-- Logo -->
         <div class="flex items-center">
-          <a routerLink="/" class="flex items-center">
-            <span class="text-xl font-semibold text-primary-600 dark:text-primary-400">The End Page</span>
-          </a>
+          <app-the-end-logo size="md"></app-the-end-logo>
         </div>
 
         <!-- Navigation -->
