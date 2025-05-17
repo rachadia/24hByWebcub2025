@@ -1,0 +1,52 @@
+<div class="container mx-auto px-4 py-8" *ngIf="event">
+  <div class="flex justify-between items-center mb-8">
+    <button mat-button routerLink="/events">
+      <mat-icon>arrow_back</mat-icon>
+      {{ 'EVENTS.DETAIL.BACK' | translate }}
+    </button>
+    <div class="flex gap-2">
+      <button mat-button color="primary" [routerLink]="['/events', event.id, 'edit']">
+        <mat-icon>edit</mat-icon>
+        {{ 'EVENTS.DETAIL.EDIT' | translate }}
+      </button>
+      <button mat-button color="warn" (click)="confirmDelete()">
+        <mat-icon>delete</mat-icon>
+        {{ 'EVENTS.DETAIL.DELETE' | translate }}
+      </button>
+      <button mat-button (click)="shareEvent()">
+        <mat-icon>share</mat-icon>
+        {{ 'EVENTS.DETAIL.SHARE' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <mat-card class="max-w-4xl mx-auto">
+    <mat-card-header>
+      <mat-card-title class="text-2xl">{{ event.title }}</mat-card-title>
+      <mat-card-subtitle>
+        {{ 'EVENTS.DETAIL.DATE' | translate }}: {{ event.date | date }}
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="mt-6">
+      <div class="mb-6">
+        <h3 class="text-lg font-medium mb-2">{{ 'EVENTS.DETAIL.EMOTION' | translate }}</h3>
+        <p class="text-gray-600">{{ event.emotion }}</p>
+      </div>
+
+      <div class="mb-6">
+        <h3 class="text-lg font-medium mb-2">{{ 'EVENTS.DETAIL.DESCRIPTION' | translate }}</h3>
+        <p class="text-gray-600 whitespace-pre-line">{{ event.description }}</p>
+      </div>
+
+      <div *ngIf="event.media?.length">
+        <h3 class="text-lg font-medium mb-2">{{ 'EVENTS.DETAIL.MEDIA' | translate }}</h3>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div *ngFor="let media of event.media" class="relative aspect-square">
+            <img [src]="media.url" [alt]="event.title" class="w-full h-full object-cover rounded-lg">
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div> 
