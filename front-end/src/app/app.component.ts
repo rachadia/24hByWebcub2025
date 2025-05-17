@@ -6,11 +6,12 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ThemeService } from './services/theme.service';
 import { AuthService } from './services/auth.service';
 import { GlobalThemeManagerService } from './services/global-theme-manager.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent],
+  imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent, TranslateModule],
   template: `
     <div class="flex min-h-screen flex-col" [ngClass]="currentTheme">
       <app-header></app-header>
@@ -32,6 +33,7 @@ export class AppComponent implements OnInit {
     // Rendre le gestionnaire de thèmes accessible globalement
     (window as any).globalThemeManager = this.globalThemeManager;
   }
+  
 
   ngOnInit() {
     this.themeService.theme$.subscribe(theme => {

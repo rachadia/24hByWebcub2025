@@ -6,11 +6,13 @@ import { NotificationService } from '../../services/notification.service';
 import { ThemeService } from '../../services/theme.service';
 import { User } from '../../models/user.model';
 import { appliquerTheme, THEMES } from '../../utils/theme-utils';
+import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, LanguageSelectorComponent, TranslateModule],
   template: `
     <header class="bg-white shadow transition-colors dark:bg-gray-800">
       <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -29,7 +31,7 @@ import { appliquerTheme, THEMES } from '../../utils/theme-utils';
             [routerLinkActiveOptions]="{exact: true}"
             class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400"
           >
-            Home
+            {{ 'NAVIGATION.HOME' | translate }}
           </a>
           <a
             *ngIf="isLoggedIn"
@@ -37,12 +39,15 @@ import { appliquerTheme, THEMES } from '../../utils/theme-utils';
             routerLinkActive="text-primary-600 dark:text-primary-400"
             class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400"
           >
-            My Events
+            {{ 'NAVIGATION.EVENTS' | translate }}
           </a>
         </nav>
 
         <!-- Right section -->
         <div class="flex items-center space-x-4">
+          <!-- Language selector -->
+          <app-language-selector></app-language-selector>
+
           <!-- Dark mode toggle -->
           <button
             (click)="toggleDarkMode()"
@@ -58,13 +63,13 @@ import { appliquerTheme, THEMES } from '../../utils/theme-utils';
               routerLink="/auth/login"
               class="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
             >
-              Log in
+              {{ 'AUTH.LOGIN' | translate }}
             </a>
             <a
               routerLink="/auth/register"
               class="rounded-md bg-primary-600 px-3 py-2 text-sm font-medium text-white hover:bg-primary-700 dark:bg-primary-700 dark:hover:bg-primary-600"
             >
-              Sign up
+              {{ 'AUTH.REGISTER' | translate }}
             </a>
           </div>
 
@@ -91,7 +96,7 @@ import { appliquerTheme, THEMES } from '../../utils/theme-utils';
               routerLink="/events/new"
               class="hidden rounded-md bg-primary-600 px-3 py-2 text-sm font-medium text-white hover:bg-primary-700 dark:bg-primary-700 dark:hover:bg-primary-600 sm:inline-block"
             >
-              New Event
+              {{ 'EVENTS.NEW' | translate }}
             </a>
 
             <!-- User menu -->
@@ -123,13 +128,13 @@ import { appliquerTheme, THEMES } from '../../utils/theme-utils';
                   routerLink="/profile"
                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
                 >
-                  Your Profile
+                  {{ 'PROFILE.TITLE' | translate }}
                 </a>
                 <a
                   routerLink="/events"
                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
                 >
-                  Your Events
+                  {{ 'EVENTS.MY_EVENTS' | translate }}
                 </a>
                 <a
                   routerLink="/profile"
@@ -142,7 +147,7 @@ import { appliquerTheme, THEMES } from '../../utils/theme-utils';
                   href="#"
                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
                 >
-                  Sign out
+                  {{ 'AUTH.LOGOUT' | translate }}
                 </a>
               </div>
             </div>

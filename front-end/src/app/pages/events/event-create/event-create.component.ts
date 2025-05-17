@@ -6,35 +6,34 @@ import { EventService } from '../../../services/event.service';
 import { EmotionService, Emotion } from '../../../services/emotion.service';
 import { NlpService } from '../../../services/nlp.service';
 import { Observable } from 'rxjs';
-import { MoodAnalysisResult, MoodAnalysisService } from '../../../services/mood-analysis.service';
-import { SentimentAnalysisService } from '../../../services/sentiment-analysis.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-event-create',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, TranslateModule],
   template: `
     <div class="mx-auto max-w-4xl">
       <div class="mb-8 flex items-center justify-between">
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Create New Event</h1>
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{ 'EVENTS.CREATE.TITLE' | translate }}</h1>
         <a
           routerLink="/events"
           class="rounded-md bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
         >
-          Back to Events
+          {{ 'EVENTS.LIST.TITLE' | translate }}
         </a>
       </div>
 
       <div class="rounded-lg bg-white p-6 shadow-elevation-1 dark:bg-gray-800">
         <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
           <div class="mb-6">
-            <label for="title" class="label">Title</label>
+            <label for="title" class="label">{{ 'EVENTS.CREATE.FORM.TITLE' | translate }}</label>
             <input
               type="text"
               id="title"
               formControlName="title"
               class="input"
-              placeholder="Give your event a title"
+              [placeholder]="'EVENTS.CREATE.FORM.TITLE_PLACEHOLDER' | translate"
               [ngClass]="{
                 'border-red-500 dark:border-red-400': 
                   eventForm.get('title')?.invalid && 
@@ -46,18 +45,18 @@ import { SentimentAnalysisService } from '../../../services/sentiment-analysis.s
                   (eventForm.get('title')?.dirty || eventForm.get('title')?.touched)"
               class="mt-1 text-sm text-red-600 dark:text-red-400"
             >
-              <div *ngIf="eventForm.get('title')?.errors?.['required']">Title is required</div>
+              <div *ngIf="eventForm.get('title')?.errors?.['required']">{{ 'EVENTS.CREATE.FORM.TITLE' | translate }} {{ 'COMMON.REQUIRED' | translate }}</div>
             </div>
           </div>
 
           <div class="mb-6">
-            <label for="description" class="label">Description</label>
+            <label for="description" class="label">{{ 'EVENTS.CREATE.FORM.DESCRIPTION' | translate }}</label>
             <textarea
               id="description"
               formControlName="description"
               rows="3"
               class="textarea"
-              placeholder="Give a brief description of your event..."
+              [placeholder]="'EVENTS.CREATE.FORM.DESCRIPTION_PLACEHOLDER' | translate"
               [ngClass]="{
                 'border-red-500 dark:border-red-400': 
                   eventForm.get('description')?.invalid && 
@@ -69,21 +68,21 @@ import { SentimentAnalysisService } from '../../../services/sentiment-analysis.s
                   (eventForm.get('description')?.dirty || eventForm.get('description')?.touched)"
               class="mt-1 text-sm text-red-600 dark:text-red-400"
             >
-              <div *ngIf="eventForm.get('description')?.errors?.['required']">Description is required</div>
+              <div *ngIf="eventForm.get('description')?.errors?.['required']">{{ 'EVENTS.CREATE.FORM.DESCRIPTION' | translate }} {{ 'COMMON.REQUIRED' | translate }}</div>
               <div *ngIf="eventForm.get('description')?.errors?.['minlength']">
-                Description must be at least 10 characters
+                {{ 'EVENTS.CREATE.FORM.DESCRIPTION' | translate }} {{ 'COMMON.MIN_LENGTH' | translate }}
               </div>
             </div>
           </div>
 
           <div class="mb-6">
-            <label for="content" class="label">Your Event</label>
+            <label for="content" class="label">{{ 'EVENTS.CREATE.FORM.CONTENT' | translate }}</label>
             <textarea
               id="content"
               formControlName="content"
               rows="6"
               class="textarea"
-              placeholder="Describe what happened and how you feel about it..."
+              [placeholder]="'EVENTS.CREATE.FORM.CONTENT_PLACEHOLDER' | translate"
               [ngClass]="{
                 'border-red-500 dark:border-red-400': 
                   eventForm.get('content')?.invalid && 
@@ -95,15 +94,15 @@ import { SentimentAnalysisService } from '../../../services/sentiment-analysis.s
                   (eventForm.get('content')?.dirty || eventForm.get('content')?.touched)"
               class="mt-1 text-sm text-red-600 dark:text-red-400"
             >
-              <div *ngIf="eventForm.get('content')?.errors?.['required']">Content is required</div>
+              <div *ngIf="eventForm.get('content')?.errors?.['required']">{{ 'EVENTS.CREATE.FORM.CONTENT' | translate }} {{ 'COMMON.REQUIRED' | translate }}</div>
               <div *ngIf="eventForm.get('content')?.errors?.['minlength']">
-                Content must be at least 10 characters
+                {{ 'EVENTS.CREATE.FORM.CONTENT' | translate }} {{ 'COMMON.MIN_LENGTH' | translate }}
               </div>
             </div>
           </div>
 
           <div class="mb-6">
-            <label for="emotion" class="label">How are you feeling?</label>
+            <label for="emotion" class="label">{{ 'EVENTS.CREATE.FORM.EMOTION' | translate }}</label>
             <select
               id="emotion"
               formControlName="emotion"
@@ -114,24 +113,24 @@ import { SentimentAnalysisService } from '../../../services/sentiment-analysis.s
                   (eventForm.get('emotion')?.dirty || eventForm.get('emotion')?.touched)
               }"
             >
-              <option value="">Select your mood</option>
-              <option value="joy">😊 Joy</option>
-              <option value="content">😌 Content</option>
-              <option value="sadness">😢 Sadness</option>
-              <option value="anger">😡 Anger</option>
-              <option value="fear">😨 Fear</option>
+              <option value="">{{ 'EVENTS.CREATE.FORM.EMOTION_PLACEHOLDER' | translate }}</option>
+              <option value="joy">😊 {{ 'EVENTS.EMOTIONS.JOY' | translate }}</option>
+              <option value="content">😌 {{ 'EVENTS.EMOTIONS.CONTENT' | translate }}</option>
+              <option value="sadness">😢 {{ 'EVENTS.EMOTIONS.SADNESS' | translate }}</option>
+              <option value="anger">😡 {{ 'EVENTS.EMOTIONS.ANGER' | translate }}</option>
+              <option value="fear">😨 {{ 'EVENTS.EMOTIONS.FEAR' | translate }}</option>
             </select>
             <div 
               *ngIf="eventForm.get('emotion')?.invalid && 
                   (eventForm.get('emotion')?.dirty || eventForm.get('emotion')?.touched)"
               class="mt-1 text-sm text-red-600 dark:text-red-400"
             >
-              <div *ngIf="eventForm.get('emotion')?.errors?.['required']">Please select your mood</div>
+              <div *ngIf="eventForm.get('emotion')?.errors?.['required']">{{ 'EVENTS.CREATE.FORM.EMOTION' | translate }} {{ 'COMMON.REQUIRED' | translate }}</div>
             </div>
           </div>
 
           <div class="mb-6">
-            <label class="label">Attachments</label>
+            <label class="label">{{ 'EVENTS.CREATE.FORM.MEDIA' | translate }}</label>
             <div class="flex items-center justify-center w-full">
               <label
                 for="dropzone-file"
@@ -154,17 +153,17 @@ import { SentimentAnalysisService } from '../../../services/sentiment-analysis.s
                     ></path>
                   </svg>
                   <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                    <span class="font-semibold">Click to upload</span> or drag and drop
+                    <span class="font-semibold">{{ 'EVENTS.CREATE.FORM.UPLOAD_CLICK' | translate }}</span> {{ 'EVENTS.CREATE.FORM.UPLOAD_DRAG' | translate }}
                   </p>
                   <p class="text-xs text-gray-500 dark:text-gray-400">
-                    SVG, PNG, JPG or GIF (MAX. 2MB)
+                    {{ 'EVENTS.CREATE.FORM.UPLOAD_FORMATS' | translate }}
                   </p>
                 </div>
                 <input id="dropzone-file" type="file" class="hidden" />
               </label>
             </div>
             <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-              (File uploads will be available in a future update)
+              {{ 'EVENTS.CREATE.FORM.UPLOAD_FUTURE' | translate }}
             </p>
           </div>
 
@@ -176,12 +175,11 @@ import { SentimentAnalysisService } from '../../../services/sentiment-analysis.s
                 </div>
                 <div class="ml-3">
                   <h3 class="text-sm font-medium text-gray-800 dark:text-gray-200">
-                    Detected Mood: {{ emotionDisplayName }}
+                    {{ 'EVENTS.CREATE.FORM.DETECTED_MOOD' | translate }}: {{ emotionDisplayName }}
                   </h3>
                   <div class="mt-2 text-sm text-gray-600 dark:text-gray-300">
                     <p>
-                      Based on your text, we've detected a {{ emotionDisplayName.toLowerCase() }} mood.
-                      Your event will be styled with a matching theme.
+                      {{ 'EVENTS.CREATE.FORM.DETECTED_MOOD_DESC' | translate }}
                     </p>
                   </div>
                 </div>
@@ -195,7 +193,7 @@ import { SentimentAnalysisService } from '../../../services/sentiment-analysis.s
               routerLink="/events"
               class="mr-3 rounded-md bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
             >
-              Cancel
+              {{ 'EVENTS.CREATE.FORM.CANCEL' | translate }}
             </button>
             <button
               type="submit"
@@ -224,7 +222,7 @@ import { SentimentAnalysisService } from '../../../services/sentiment-analysis.s
                   ></path>
                 </svg>
               </span>
-              Create Event
+              {{ 'EVENTS.CREATE.FORM.SUBMIT' | translate }}
             </button>
           </div>
         </form>
@@ -246,6 +244,7 @@ export class EventCreateComponent {
     private emotionService: EmotionService,
     private router: Router,
     private nlpService: NlpService,
+    private translate: TranslateService
   ) {
     this.isProcessing$ = this.nlpService.isProcessing();
     this.eventForm = this.formBuilder.group({
