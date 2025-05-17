@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head'); %>
+  <title><%= title %></title>
+  <style>
+    .hero-gradient {
+      background: linear-gradient(135deg, #6366F1 0%, #EC4899 100%);
+    }
+    
+    .feature-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .emotion-icon {
+      font-size: 2.5rem;
+      padding: 1rem;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+    }
+    
+    .joy { background-color: #FFF9C4; color: #FFA000; }
+    .sadness { background-color: #E3F2FD; color: #1976D2; }
+    .anger { background-color: #FFEBEE; color: #D32F2F; }
+    .surprise { background-color: #F3E5F5; color: #9C27B0; }
+    
+    .animated-gradient {
+      background: linear-gradient(-45deg, #6366F1, #EC4899, #3B82F6, #10B981);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+    }
+    
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gray-50 flex flex-col">
+  <%- include('partials/navbar'); %>
+
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white py-20 px-4 sm:px-6 lg:px-8">
+      <div class="container mx-auto max-w-6xl">
+        <div class="flex flex-col md:flex-row items-center justify-between">
+          <div class="md:w-1/2 mb-10 md:mb-0">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">Share Your Journey, Track Your Emotions</h1>
+            <p class="text-xl mb-8 opacity-90">The End Page helps you document life's moments and understand your emotional patterns over time.</p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a href="/auth/register" class="bg-white text-indigo-600 font-medium py-3 px-6 rounded-lg shadow-md hover:bg-gray-100 transition">Get Started</a>
+              <a href="#how-it-works" class="bg-transparent border-2 border-white text-white font-medium py-3 px-6 rounded-lg hover:bg-white/10 transition">Learn More</a>
+            </div>
+          </div>
+          <div class="md:w-1/2 flex justify-center">
+            <img src="https://images.pexels.com/photos/3808904/pexels-photo-3808904.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Person journaling" class="rounded-lg shadow-2xl max-w-full h-auto" width="500">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white" id="features">
+      <div class="container mx-auto max-w-6xl">
+        <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Capture Life's Emotional Journey</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Feature 1 -->
+          <div class="feature-card bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+            <div class="emotion-icon joy inline-block">😊</div>
+            <h3 class="text-xl font-semibold mb-3 text-gray-800">Track Your Emotions</h3>
+            <p class="text-gray-600">Our intelligent system analyzes your entries to identify your emotional state, helping you understand your feelings over time.</p>
+          </div>
+          
+          <!-- Feature 2 -->
+          <div class="feature-card bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+            <div class="emotion-icon sadness inline-block">🤔</div>
+            <h3 class="text-xl font-semibold mb-3 text-gray-800">Reflect & Grow</h3>
+            <p class="text-gray-600">Return to past events to add new perspectives. See how your thoughts and feelings about experiences evolve.</p>
+          </div>
+          
+          <!-- Feature 3 -->
+          <div class="feature-card bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+            <div class="emotion-icon anger inline-block">🔒</div>
+            <h3 class="text-xl font-semibold mb-3 text-gray-800">Private or Shared</h3>
+            <p class="text-gray-600">Keep your stories private or share them with a community that understands. You control your journey's visibility.</p>
+          </div>
+          
+          <!-- Feature 4 -->
+          <div class="feature-card bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+            <div class="emotion-icon surprise inline-block">🎨</div>
+            <h3 class="text-xl font-semibold mb-3 text-gray-800">Visual Themes</h3>
+            <p class="text-gray-600">Each mood gets its own visual identity. Your journal adapts to your emotional state with beautiful, personalized themes.</p>
+          </div>
+          
+          <!-- Feature 5 -->
+          <div class="feature-card bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+            <div class="emotion-icon joy inline-block">📊</div>
+            <h3 class="text-xl font-semibold mb-3 text-gray-800">Emotional Insights</h3>
+            <p class="text-gray-600">Discover patterns in your emotional responses with intuitive visualizations and personalized insights.</p>
+          </div>
+          
+          <!-- Feature 6 -->
+          <div class="feature-card bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+            <div class="emotion-icon sadness inline-block">🤝</div>
+            <h3 class="text-xl font-semibold mb-3 text-gray-800">Supportive Community</h3>
+            <p class="text-gray-600">Connect with others who share similar experiences. Comment, react, and build meaningful connections.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50" id="how-it-works">
+      <div class="container mx-auto max-w-6xl">
+        <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">How It Works</h2>
+        
+        <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+          <div class="md:w-1/2">
+            <img src="https://images.pexels.com/photos/6966/abstract-music-rock-bw.jpg?auto=compress&cs=tinysrgb&w=600" alt="The End Page interface" class="rounded-lg shadow-xl" width="500">
+          </div>
+          
+          <div class="md:w-1/2">
+            <ol class="space-y-6">
+              <li class="flex gap-4 items-start">
+                <div class="bg-indigo-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">1</div>
+                <div>
+                  <h3 class="text-xl font-semibold mb-2 text-gray-800">Record Your Experience</h3>
+                  <p class="text-gray-600">Write about significant moments, attach photos or videos, and describe how you feel.</p>
+                </div>
+              </li>
+              
+              <li class="flex gap-4 items-start">
+                <div class="bg-indigo-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">2</div>
+                <div>
+                  <h3 class="text-xl font-semibold mb-2 text-gray-800">Discover Your Emotions</h3>
+                  <p class="text-gray-600">Our system analyzes your content to identify your mood and suggests a visual theme that matches.</p>
+                </div>
+              </li>
+              
+              <li class="flex gap-4 items-start">
+                <div class="bg-indigo-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">3</div>
+                <div>
+                  <h3 class="text-xl font-semibold mb-2 text-gray-800">Reflect & Update</h3>
+                  <p class="text-gray-600">Later, revisit your events and add new reflections as your perspective evolves over time.</p>
+                </div>
+              </li>
+              
+              <li class="flex gap-4 items-start">
+                <div class="bg-indigo-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">4</div>
+                <div>
+                  <h3 class="text-xl font-semibold mb-2 text-gray-800">Track Your Journey</h3>
+                  <p class="text-gray-600">See your emotional patterns develop and gain insights from your complete history.</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 animated-gradient text-white text-center">
+      <div class="container mx-auto max-w-4xl">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Start Your Emotional Journey?</h2>
+        <p class="text-xl mb-8 opacity-90">Join thousands of others documenting their life experiences and emotional growth.</p>
+        <a href="/auth/register" class="bg-white text-indigo-600 font-medium py-3 px-8 rounded-lg shadow-md hover:bg-gray-100 transition inline-block">Create Your Account</a>
+      </div>
+    </section>
+    
+    <!-- Testimonials -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+      <div class="container mx-auto max-w-6xl">
+        <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">From Our Community</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Testimonial 1 -->
+          <div class="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100">
+            <div class="flex items-center mb-4">
+              <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=600" alt="User" class="w-12 h-12 rounded-full mr-4">
+              <div>
+                <h4 class="font-semibold text-gray-800">Sarah J.</h4>
+                <p class="text-gray-500 text-sm">Member since 2024</p>
+              </div>
+            </div>
+            <p class="text-gray-700">"The End Page has helped me process difficult emotions from my divorce. Being able to track how my feelings evolved over time gave me perspective I couldn't get elsewhere."</p>
+          </div>
+          
+          <!-- Testimonial 2 -->
+          <div class="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100">
+            <div class="flex items-center mb-4">
+              <img src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600" alt="User" class="w-12 h-12 rounded-full mr-4">
+              <div>
+                <h4 class="font-semibold text-gray-800">Michael T.</h4>
+                <p class="text-gray-500 text-sm">Member since 2023</p>
+              </div>
+            </div>
+            <p class="text-gray-700">"I've always struggled to identify how I'm feeling. The mood detection feature has been surprisingly accurate and helped me put words to emotions I couldn't name before."</p>
+          </div>
+          
+          <!-- Testimonial 3 -->
+          <div class="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100">
+            <div class="flex items-center mb-4">
+              <img src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=600" alt="User" class="w-12 h-12 rounded-full mr-4">
+              <div>
+                <h4 class="font-semibold text-gray-800">Aisha K.</h4>
+                <p class="text-gray-500 text-sm">Member since 2024</p>
+              </div>
+            </div>
+            <p class="text-gray-700">"The community here is unlike any social media platform. People are thoughtful, supportive, and genuinely interested in emotional growth rather than superficial interactions."</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <%- include('partials/footer'); %>
+</body>
+</html>

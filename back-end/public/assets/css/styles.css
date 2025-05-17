@@ -1,0 +1,201 @@
+/* Custom styles beyond Tailwind */
+
+/* Mood Theme Colors */
+:root {
+  /* Joy theme */
+  --joy-primary: #FFD700;
+  --joy-secondary: #FFA500;
+  --joy-accent: #FFB74D;
+  --joy-light: #FFECB3;
+  --joy-dark: #FFC107;
+  
+  /* Sadness theme */
+  --sadness-primary: #607D8B;
+  --sadness-secondary: #90A4AE;
+  --sadness-accent: #B0BEC5;
+  --sadness-light: #CFD8DC;
+  --sadness-dark: #78909C;
+  
+  /* Anger theme */
+  --anger-primary: #E53935;
+  --anger-secondary: #EF5350;
+  --anger-accent: #E57373;
+  --anger-light: #FFCDD2;
+  --anger-dark: #F44336;
+  
+  /* Fear theme */
+  --fear-primary: #424242;
+  --fear-secondary: #616161;
+  --fear-accent: #757575;
+  --fear-light: #9E9E9E;
+  --fear-dark: #212121;
+  
+  /* Surprise theme */
+  --surprise-primary: #BA68C8;
+  --surprise-secondary: #CE93D8;
+  --surprise-accent: #E1BEE7;
+  --surprise-light: #F3E5F5;
+  --surprise-dark: #9C27B0;
+  
+  /* Disgust theme */
+  --disgust-primary: #388E3C;
+  --disgust-secondary: #4CAF50;
+  --disgust-accent: #81C784;
+  --disgust-light: #C8E6C9;
+  --disgust-dark: #2E7D32;
+  
+  /* Neutral theme */
+  --neutral-primary: #3F51B5;
+  --neutral-secondary: #5C6BC0;
+  --neutral-accent: #7986CB;
+  --neutral-light: #C5CAE9;
+  --neutral-dark: #303F9F;
+}
+
+/* Event Card Theme Designs */
+.theme-joy {
+  border-left: 4px solid var(--joy-primary);
+  background-color: var(--joy-light);
+}
+
+.theme-sadness {
+  border-left: 4px solid var(--sadness-primary);
+  background-color: var(--sadness-light);
+}
+
+.theme-anger {
+  border-left: 4px solid var(--anger-primary);
+  background-color: var(--anger-light);
+}
+
+.theme-fear {
+  border-left: 4px solid var(--fear-primary);
+  background-color: var(--fear-light);
+}
+
+.theme-surprise {
+  border-left: 4px solid var(--surprise-primary);
+  background-color: var(--surprise-light);
+}
+
+.theme-disgust {
+  border-left: 4px solid var(--disgust-primary);
+  background-color: var(--disgust-light);
+}
+
+.theme-neutral {
+  border-left: 4px solid var(--neutral-primary);
+  background-color: var(--neutral-light);
+}
+
+/* Mood Icons */
+.mood-joy::before {
+  content: "😊";
+}
+
+.mood-sadness::before {
+  content: "😔";
+}
+
+.mood-anger::before {
+  content: "😠";
+}
+
+.mood-fear::before {
+  content: "😨";
+}
+
+.mood-surprise::before {
+  content: "😲";
+}
+
+.mood-disgust::before {
+  content: "🤢";
+}
+
+.mood-neutral::before {
+  content: "😐";
+}
+
+/* Animation Classes */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s ease-in-out;
+}
+
+.animate-slide-down {
+  animation: slideDown 0.5s ease-in-out;
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Utility Classes */
+.backdrop-blur {
+  backdrop-filter: blur(8px);
+}
+
+.text-shadow {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.hover-grow {
+  transition: transform 0.3s ease;
+}
+
+.hover-grow:hover {
+  transform: scale(1.05);
+}
+
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
