@@ -16,7 +16,7 @@ const apiRoutes = require('./routes/api.js');
 
 // Import database connection
 const sequelize = require('./config/database.js');
-import './models/associations.js';
+require('./models/associations.js');
 
 // Load environment variables
 dotenv.config();
