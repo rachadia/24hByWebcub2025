@@ -29,16 +29,24 @@ export class AppComponent implements OnInit {
       this.currentTheme = theme;
     });
 
-    // Check if user prefers dark mode
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      document.documentElement.classList.add('dark');
+    // Appliquer le thème par défaut si aucun n'est défini
+    if (!this.currentTheme) {
+      this.themeService.setTheme('theme-neutre');
     }
 
-    // Listen for changes in color scheme preference
+    // Vérifier la préférence de mode sombre/clair
+    const darkMode = localStorage.getItem('darkMode');
+    if (darkMode === 'true' || (darkMode === null && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    // Écouter les changements de préférence
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-      if (e.matches) {
+      if (e.matches && localStorage.getItem('darkMode') !== 'false') {
         document.documentElement.classList.add('dark');
-      } else {
+      } else if (!e.matches && localStorage.getItem('darkMode') !== 'true') {
         document.documentElement.classList.remove('dark');
       }
     });

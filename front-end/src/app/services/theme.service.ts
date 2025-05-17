@@ -1,12 +1,53 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+export interface ThemeOption {
+  id: string;
+  name: string;
+  description: string;
+  previewColor: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeService {
   private themeSubject = new BehaviorSubject<string>('');
   public theme$ = this.themeSubject.asObservable();
+  
+  // Les thèmes disponibles
+  public availableThemes: ThemeOption[] = [
+    { 
+      id: 'theme-joy', 
+      name: 'Mode Joyeux', 
+      description: 'Un thème coloré et joyeux avec des tons roses', 
+      previewColor: '#f43f5e' 
+    },
+    { 
+      id: 'theme-sadness', 
+      name: 'Mode Mélancolique', 
+      description: 'Un thème aux tons bleus apaisants', 
+      previewColor: '#3b82f6' 
+    },
+    { 
+      id: 'theme-anger', 
+      name: 'Mode Passion', 
+      description: 'Un thème aux couleurs chaudes et vibrantes', 
+      previewColor: '#ef4444' 
+    },
+    { 
+      id: 'theme-fear', 
+      name: 'Mode Mystère', 
+      description: 'Un thème sombre et subtil', 
+      previewColor: '#64748b' 
+    },
+    { 
+      id: 'theme-neutre', 
+      name: 'Mode Neutre', 
+      description: 'Un thème équilibré et épuré', 
+      previewColor: '#6b7280' 
+    }
+  ];
 
   constructor() {
     // Check local storage for saved theme

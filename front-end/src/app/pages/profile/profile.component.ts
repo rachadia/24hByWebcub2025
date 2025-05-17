@@ -6,11 +6,12 @@ import { AuthService } from '../../services/auth.service';
 import { EventService } from '../../services/event.service';
 import { User } from '../../models/user.model';
 import { Event } from '../../models/event.model';
+import { ThemeSelectorComponent } from '../../components/theme-selector/theme-selector.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, ThemeSelectorComponent],
   template: `
     <div class="mx-auto max-w-7xl">
       <div class="mb-8">
@@ -50,6 +51,14 @@ import { Event } from '../../models/event.model';
             </a>
           </div>
         </div>
+      </div>
+
+      <!-- Personnalisation du thème -->
+      <div class="mb-8 rounded-lg bg-white shadow-elevation-1 dark:bg-gray-800">
+        <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+          <h2 class="text-lg font-medium text-gray-900 dark:text-white">Personnalisation du thème</h2>
+        </div>
+        <app-theme-selector></app-theme-selector>
       </div>
 
       <!-- Stats -->
