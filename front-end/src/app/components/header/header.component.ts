@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth.service';
 import { NotificationService } from '../../services/notification.service';
 import { ThemeService } from '../../services/theme.service';
 import { User } from '../../models/user.model';
+import { appliquerTheme, THEMES } from '../../utils/theme-utils';
 
 @Component({
   selector: 'app-header',
@@ -178,6 +179,7 @@ export class HeaderComponent implements OnInit {
 
     // Close menu when clicking outside
     document.addEventListener('click', this.closeMenuOnOutsideClick.bind(this));
+    appliquerTheme(THEMES.ANGER);
   }
 
   toggleUserMenu(): void {

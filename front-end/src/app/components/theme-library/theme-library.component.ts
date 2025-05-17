@@ -73,10 +73,10 @@ import { ThemeLibraryService, ThemeStyle } from '../../services/theme-library.se
 import { ThemeLibraryService } from 'src/app/services/theme-library.service';
 
 // Injecter dans votre composant
-constructor(private themeLibrary: ThemeLibraryService) {}
+constructor(private themeLibrary: ThemeLibraryService) { }
 
 // Appliquer le thème à un élément
-this.themeLibrary.applyTheme('{{ selectedThemeId }}', monElement);</code></pre>
+this.themeLibrary.applyTheme('themeId', monElement);</code></pre>
           </div>
         </div>
       </div>

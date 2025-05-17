@@ -1,4 +1,6 @@
 .angular
 node_modules
 .env
+Dockerfile
+docker-compose.yml
 
