@@ -7,6 +7,17 @@ import { EmotionService, Emotion } from '../../../services/emotion.service';
 import { NlpService } from '../../../services/nlp.service';
 import { Observable } from 'rxjs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { FaceDetectionService } from '../../../services/face-detection.service';
+
+interface FaceExpressions {
+  angry: number;
+  disgusted: number;
+  fearful: number;
+  happy: number;
+  neutral: number;
+  sad: number;
+  surprised: number;
+}
 
 @Component({
   selector: 'app-event-create',
@@ -159,7 +170,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
                     {{ 'EVENTS.CREATE.FORM.UPLOAD_FORMATS' | translate }}
                   </p>
                 </div>
-                <input id="dropzone-file" type="file" class="hidden" />
+                <input id="dropzone-file" type="file" class="hidden" (change)="onFileSelected($event)" accept="image/*" />
               </label>
             </div>
             <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
@@ -244,7 +255,8 @@ export class EventCreateComponent {
     private emotionService: EmotionService,
     private router: Router,
     private nlpService: NlpService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private faceDetectionService: FaceDetectionService
   ) {
     this.isProcessing$ = this.nlpService.isProcessing();
     this.eventForm = this.formBuilder.group({
@@ -303,5 +315,103 @@ export class EventCreateComponent {
         this.isSubmitting = false;
       }
     });
+  }
+
+  private getDominantEmotion(expressions: FaceExpressions | undefined): string {
+    if (!expressions) return 'neutral';
+    
+    const emotions = Object.entries(expressions) as [string, number][];
+    const dominantEmotion = emotions.reduce((prev, current) => {
+      return (prev[1] > current[1]) ? prev : current;
+    });
+    
+    return dominantEmotion[0];
+  }
+
+  private convertFaceApiEmotion(faceApiEmotion: string): string {
+    switch (faceApiEmotion) {
+      case 'angry':
+        return 'anger';
+      case 'disgusted':
+        return 'disgust';
+      case 'fearful':
+        return 'fear';
+      case 'happy':
+        return 'joy';
+      case 'neutral':
+        return 'neutral';
+      case 'sad':
+        return 'sadness';
+      case 'surprised':
+        return 'fear';
+      default:
+        return 'neutral';
+    }
+  }
+
+  async onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      
+      // Créer une image
+      const img = new Image();
+      
+      // Attendre que l'image soit chargée
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+        img.src = URL.createObjectURL(file);
+      });
+
+      // Créer un canvas avec des dimensions fixes
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      
+      // Définir les dimensions du canvas à 256x256 (taille requise par face-api.js)
+      canvas.width = 256;
+      canvas.height = 256;
+      
+      // Calculer les dimensions pour garder le ratio
+      let drawWidth = 256;
+      let drawHeight = 256;
+      let offsetX = 0;
+      let offsetY = 0;
+      
+      const ratio = img.width / img.height;
+      if (ratio > 1) {
+        // Image plus large que haute
+        drawHeight = 256 / ratio;
+        offsetY = (256 - drawHeight) / 2;
+      } else {
+        // Image plus haute que large
+        drawWidth = 256 * ratio;
+        offsetX = (256 - drawWidth) / 2;
+      }
+      
+      // Dessiner l'image sur le canvas
+      ctx?.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+      
+      try {
+        // Détecter le visage
+        const result = await this.faceDetectionService.detectSingleFace(canvas);
+        console.log('Face detection result:', result?.expressions);
+        
+        // Récupérer l'émotion dominante
+        const dominantEmotion = this.getDominantEmotion(result?.expressions);
+        console.log('Dominant emotion:', dominantEmotion);
+        
+        // Convertir et mettre à jour l'émotion dans le formulaire
+        const convertedEmotion = this.convertFaceApiEmotion(dominantEmotion);
+        this.eventForm.patchValue({
+          emotion: convertedEmotion
+        });
+        
+        // Nettoyer
+        URL.revokeObjectURL(img.src);
+      } catch (error) {
+        console.error('Error detecting face:', error);
+      }
+    }
   }
 }
