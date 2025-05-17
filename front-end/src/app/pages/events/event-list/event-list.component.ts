@@ -4,20 +4,21 @@ import { RouterModule } from '@angular/router';
 import { EventService } from '../../../services/event.service';
 import { Event } from '../../../models/event.model';
 import { EmotionService } from '../../../services/emotion.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-event-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TranslateModule],
   template: `
     <div class="mx-auto max-w-7xl">
       <div class="mb-8 flex items-center justify-between">
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">My Events</h1>
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{ 'EVENTS.LIST.TITLE' | translate }}</h1>
         <a
           routerLink="/events/new"
           class="rounded-md bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700 dark:bg-primary-700 dark:hover:bg-primary-600"
         >
-          Create New Event
+          {{ 'EVENTS.NEW' | translate }}
         </a>
       </div>
 
@@ -35,7 +36,7 @@ import { EmotionService } from '../../../services/emotion.service';
                   activeFilter !== 'all'
               }"
             >
-              All Events
+              {{ 'EVENTS.LIST.FILTERS.ALL' | translate }}
             </a>
           </li>
           <li class="mr-2">
@@ -49,7 +50,7 @@ import { EmotionService } from '../../../services/emotion.service';
                   activeFilter !== 'joy'
               }"
             >
-              Joy
+              {{ 'EVENTS.EMOTIONS.JOY' | translate }}
             </a>
           </li>
           <li class="mr-2">
@@ -63,7 +64,7 @@ import { EmotionService } from '../../../services/emotion.service';
                   activeFilter !== 'sadness'
               }"
             >
-              Sadness
+              {{ 'EVENTS.EMOTIONS.SADNESS' | translate }}
             </a>
           </li>
           <li class="mr-2">
@@ -77,7 +78,7 @@ import { EmotionService } from '../../../services/emotion.service';
                   activeFilter !== 'anger'
               }"
             >
-              Anger
+              {{ 'EVENTS.EMOTIONS.ANGER' | translate }}
             </a>
           </li>
           <li>
@@ -91,7 +92,7 @@ import { EmotionService } from '../../../services/emotion.service';
                   activeFilter !== 'fear'
               }"
             >
-              Fear
+              {{ 'EVENTS.EMOTIONS.FEAR' | translate }}
             </a>
           </li>
         </ul>
@@ -103,7 +104,7 @@ import { EmotionService } from '../../../services/emotion.service';
           <div class="mb-4">
             <div class="flex items-center justify-between">
               <h3 class="text-xl font-semibold text-gray-900 dark:text-white">{{ event.title }}</h3>
-              <span class="badge-primary">{{ getEmotionDisplayName(event.emotion) }}</span>
+              <span class="badge-primary">{{ 'EVENTS.EMOTIONS.' + event.emotion.toUpperCase() | translate }}</span>
             </div>
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
               {{ event.createdAt | date:'medium' }}
@@ -117,7 +118,7 @@ import { EmotionService } from '../../../services/emotion.service';
               <div *ngFor="let attachment of event.attachments.slice(0, 3)" class="relative h-20 overflow-hidden rounded-md">
                 <img
                   [src]="attachment"
-                  alt="Attachment"
+                  [alt]="'EVENTS.LIST.ATTACHMENT_ALT' | translate"
                   class="h-full w-full object-cover"
                 />
               </div>
@@ -134,7 +135,7 @@ import { EmotionService } from '../../../services/emotion.service';
               [routerLink]="['/events', event.id]"
               class="text-sm font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
             >
-              View Event →
+              {{ 'EVENTS.LIST.VIEW_EVENT' | translate }} →
             </a>
           </div>
         </div>
@@ -145,9 +146,9 @@ import { EmotionService } from '../../../services/emotion.service';
         <div class="flex justify-center">
           <span class="text-4xl">📝</span>
         </div>
-        <h3 class="mt-2 text-sm font-semibold text-gray-900 dark:text-white">No events found</h3>
+        <h3 class="mt-2 text-sm font-semibold text-gray-900 dark:text-white">{{ 'EVENTS.LIST.NO_EVENTS_FOUND' | translate }}</h3>
         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-          Get started by creating a new event.
+          {{ 'EVENTS.LIST.GET_STARTED' | translate }}
         </p>
         <div class="mt-6">
           <a
@@ -155,7 +156,7 @@ import { EmotionService } from '../../../services/emotion.service';
             class="inline-flex items-center rounded-md bg-primary-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 dark:bg-primary-700 dark:hover:bg-primary-600"
           >
             <span class="mr-2">+</span>
-            New Event
+            {{ 'EVENTS.NEW' | translate }}
           </a>
         </div>
       </div>
@@ -168,7 +169,11 @@ export class EventListComponent implements OnInit {
   activeFilter = 'all';
   isLoading = true;
 
-  constructor(private eventService: EventService, private emotionService: EmotionService) {}
+  constructor(
+    private eventService: EventService, 
+    private emotionService: EmotionService,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit(): void {
     this.loadEvents();

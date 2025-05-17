@@ -1,0 +1,60 @@
+<div class="container mx-auto px-4 py-8">
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{ 'EVENTS.LIST.TITLE' | translate }}</h1>
+    <button mat-raised-button color="primary" routerLink="/events/new">
+      <mat-icon>add</mat-icon>
+      {{ 'EVENTS.NEW' | translate }}
+    </button>
+  </div>
+
+  <div class="mb-6">
+    <mat-form-field class="w-full">
+      <mat-label>{{ 'EVENTS.LIST.SEARCH' | translate }}</mat-label>
+      <input matInput [(ngModel)]="searchQuery" (keyup)="applyFilter()" [placeholder]="'EVENTS.LIST.SEARCH' | translate">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <div class="mb-6">
+    <mat-form-field>
+      <mat-label>{{ 'EVENTS.LIST.SORT.LABEL' | translate }}</mat-label>
+      <mat-select [(ngModel)]="sortBy" (selectionChange)="applySort()">
+        <mat-option value="date_asc">{{ 'EVENTS.LIST.SORT.DATE_ASC' | translate }}</mat-option>
+        <mat-option value="date_desc">{{ 'EVENTS.LIST.SORT.DATE_DESC' | translate }}</mat-option>
+        <mat-option value="title_asc">{{ 'EVENTS.LIST.SORT.TITLE_ASC' | translate }}</mat-option>
+        <mat-option value="title_desc">{{ 'EVENTS.LIST.SORT.TITLE_DESC' | translate }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="events.length === 0" class="text-center py-12">
+    <p class="text-gray-500 dark:text-gray-400 mb-4">{{ 'EVENTS.LIST.EMPTY' | translate }}</p>
+    <button mat-raised-button color="primary" routerLink="/events/new">
+      {{ 'EVENTS.LIST.CREATE_FIRST' | translate }}
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <mat-card *ngFor="let event of events" class="event-card">
+      <mat-card-header>
+        <mat-card-title>{{ event.title }}</mat-card-title>
+        <mat-card-subtitle>{{ event.date | date:'medium' }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="text-gray-600 dark:text-gray-300">{{ event.description }}</p>
+        <div class="mt-2">
+          <span class="text-sm text-gray-500 dark:text-gray-400">{{ 'EVENTS.DETAIL.EMOTION' | translate }}:</span>
+          <span class="ml-2">{{ 'EVENTS.EMOTIONS.' + event.emotion.toUpperCase() | translate }}</span>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button [routerLink]="['/events', event.id]">
+          {{ 'EVENTS.DETAIL.EDIT' | translate }}
+        </button>
+        <button mat-button color="warn" (click)="deleteEvent(event.id)">
+          {{ 'EVENTS.DETAIL.DELETE' | translate }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div> 

@@ -1,0 +1,51 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold text-gray-900 mb-8">{{ 'EVENTS.CREATE.TITLE' | translate }}</h1>
+
+  <form [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="max-w-2xl">
+    <mat-form-field class="w-full mb-4">
+      <mat-label>{{ 'EVENTS.CREATE.FORM.TITLE' | translate }}</mat-label>
+      <input matInput formControlName="title" [placeholder]="'EVENTS.CREATE.FORM.TITLE_PLACEHOLDER' | translate">
+      <mat-error *ngIf="eventForm.get('title')?.hasError('required')">
+        {{ 'EVENTS.CREATE.FORM.TITLE' | translate }} {{ 'COMMON.REQUIRED' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-full mb-4">
+      <mat-label>{{ 'EVENTS.CREATE.FORM.DATE' | translate }}</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="eventForm.get('date')?.hasError('required')">
+        {{ 'EVENTS.CREATE.FORM.DATE' | translate }} {{ 'COMMON.REQUIRED' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-full mb-4">
+      <mat-label>{{ 'EVENTS.CREATE.FORM.DESCRIPTION' | translate }}</mat-label>
+      <textarea matInput formControlName="description" rows="4" [placeholder]="'EVENTS.CREATE.FORM.DESCRIPTION_PLACEHOLDER' | translate"></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="w-full mb-4">
+      <mat-label>{{ 'EVENTS.CREATE.FORM.EMOTION' | translate }}</mat-label>
+      <input matInput formControlName="emotion" [placeholder]="'EVENTS.CREATE.FORM.EMOTION_PLACEHOLDER' | translate">
+    </mat-form-field>
+
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700 mb-2">{{ 'EVENTS.CREATE.FORM.MEDIA' | translate }}</label>
+      <input type="file" (change)="onFileSelected($event)" multiple accept="image/*,video/*" class="hidden" #fileInput>
+      <button type="button" mat-stroked-button (click)="fileInput.click()">
+        <mat-icon>add_photo_alternate</mat-icon>
+        {{ 'EVENTS.CREATE.FORM.MEDIA_PLACEHOLDER' | translate }}
+      </button>
+    </div>
+
+    <div class="flex justify-end gap-4">
+      <button type="button" mat-button routerLink="/events">
+        {{ 'EVENTS.CREATE.FORM.CANCEL' | translate }}
+      </button>
+      <button type="submit" mat-raised-button color="primary" [disabled]="eventForm.invalid">
+        {{ 'EVENTS.CREATE.FORM.SUBMIT' | translate }}
+      </button>
+    </div>
+  </form>
+</div> 
