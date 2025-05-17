@@ -1,0 +1,47 @@
+services:
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: LesM4ki!
+      MYSQL_DATABASE: lesmakiscodeu_the_end_page_db
+      MYSQL_USER: lesmakiscodeu
+      MYSQL_PASSWORD: LesM4ki!
+    ports:
+      - 3306:3306
+    volumes:
+      - db_data:/var/lib/mysql
+  backend:
+    depends_on:
+      - db
+    image: back
+    ports:
+      - 3001:3001
+    restart: always
+    command: "npm run start"
+    working_dir: /home/node/app
+    volumes:
+      - ./back-end:/home/node/app
+  frontend:
+    depends_on:
+      - backend
+    image: front
+    ports:
+      - 4200:4200
+    restart: always
+    command: "npm run start"
+    working_dir: /home/node/app
+    volumes:
+      - ./front-end:/home/node/app
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin:latest
+    ports:
+      - 8080:80
+    restart: always
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: LesM4ki!
+volumes:
+  db_data:
