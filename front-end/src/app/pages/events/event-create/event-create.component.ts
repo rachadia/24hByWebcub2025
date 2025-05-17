@@ -9,6 +9,9 @@ import { Observable } from 'rxjs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FaceDetectionService } from '../../../services/face-detection.service';
 
+import { MoodAnalysisResult, MoodAnalysisService } from '../../../services/mood-analysis.service';
+import { SentimentAnalysisService } from '../../../services/sentiment-analysis.service';
+
 interface FaceExpressions {
   angry: number;
   disgusted: number;
@@ -291,6 +294,7 @@ export class EventCreateComponent {
     // S'abonner aux réponses du service NLP
     this.nlpService.getResponse().subscribe(response => {
       if (response) {
+        console.log("response: ",response);
         this.detectedEmotion = this.emotionService.detectEmotion(response);
         this.emotionDisplayName = this.emotionService.getEmotionDisplayName(this.detectedEmotion);
         this.emotionIcon = this.emotionService.getEmotionIcon(this.detectedEmotion);

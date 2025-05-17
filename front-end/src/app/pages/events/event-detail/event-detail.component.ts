@@ -12,6 +12,7 @@ import { appliquerTheme } from '../../../utils/theme-utils';
 import { ThemeService } from '../../../services/theme.service';
 import { THEMES } from '../../../utils/theme-utils';
 import { appliquerTheme } from '../../../utils/theme-utils';
+import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   selector: 'app-event-detail',
