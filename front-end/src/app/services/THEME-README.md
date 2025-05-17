@@ -1,152 +1,196 @@
-# Bibliothèque de Thèmes Réutilisables pour TheEnd.page
+# Système de Thèmes pour TheEnd.page
 
-Cette bibliothèque permet de réutiliser facilement des aspects spécifiques des thèmes existants dans différentes parties de l'application TheEnd.page. Elle offre une solution modulaire pour appliquer des styles cohérents à des éléments spécifiques, indépendamment du thème global de l'application.
+Ce document explique comment utiliser le système complet de thèmes de l'application TheEnd.page, incluant à la fois les thèmes standards et la bibliothèque de thèmes réutilisables.
 
-## Thèmes disponibles
+## 1. Vue d'ensemble du système de thèmes
 
-La bibliothèque contient actuellement les thèmes suivants :
+L'application dispose de deux systèmes de thèmes complémentaires :
 
-1. **Passion Sombre** (`dark-passion`) - Le mode sombre du thème Passion avec des tons rouges profonds
-   - Idéal pour les sections qui nécessitent une ambiance intense ou dramatique
-   - Parfait pour les contenus liés à des moments forts en émotions
+1. **Thèmes Standards** : Les thèmes de base de l'application (Joyeux, Mélancolique, Passion, etc.)
+2. **Bibliothèque de Thèmes Personnalisés** : Des thèmes réutilisables qui peuvent être appliqués à des sections spécifiques
 
-2. **Mélancolie Claire** (`light-melancholy`) - Le mode clair du thème Mélancolique avec des tons bleus apaisants
-   - Adapté pour les sections qui évoquent la nostalgie ou la réflexion
-   - Convient aux contenus plus sensibles ou contemplatifs
+Le système a été enrichi avec un **Gestionnaire de Thèmes Global** qui permet d'appliquer n'importe quel thème au niveau racine de l'application.
 
-3. **Neutralité Claire** (`light-neutral`) - Le mode clair du thème Neutre avec des tons gris équilibrés
-   - Parfait pour les sections qui doivent rester neutres
-   - Idéal pour les contenus informatifs ou factuels
+## 2. Thèmes Disponibles
 
-## Méthodes d'utilisation
+### Thèmes Standards
+- **Mode Joyeux** (`theme-joy`) - Tons roses et vifs
+- **Mode Mélancolique** (`theme-sadness`) - Tons bleus apaisants
+- **Mode Passion** (`theme-anger`) - Tons rouges chaleureux
+- **Mode Neutre** (`theme-neutre`) - Tons gris équilibrés
+- **Mode Intensité** (`theme-intensity`) - Tons violets énergiques
 
-### 1. Utilisation de la directive (Méthode recommandée)
+### Thèmes Personnalisés
+- **Passion Sombre** (`dark-passion`) - Mode sombre du thème Passion 
+- **Mélancolie Claire** (`light-melancholy`) - Mode clair du thème Mélancolique
+- **Neutralité Claire** (`light-neutral`) - Mode clair du thème Neutre
 
-La méthode la plus simple est d'utiliser la directive `appThemeApply` :
+## 3. Utilisation du Gestionnaire de Thèmes Global
 
-```html
-<div [appThemeApply]="'dark-passion'">
-  Ce contenu utilisera le thème Passion Sombre
-</div>
-```
-
-Cette approche est idéale pour appliquer un thème à un bloc spécifique dans un composant.
-
-### 2. Utilisation du service `ThemeLibraryService`
-
-Pour plus de flexibilité et un contrôle dynamique, vous pouvez injecter et utiliser le service directement :
+### Option 1 : Utilisation via le service
 
 ```typescript
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ThemeLibraryService } from 'src/app/services/theme-library.service';
+import { GlobalThemeManagerService } from 'src/app/services/global-theme-manager.service';
 
 @Component({...})
 export class MonComposant {
-  @ViewChild('monElement') monElement!: ElementRef<HTMLElement>;
+  constructor(private themeManager: GlobalThemeManagerService) {}
   
-  constructor(private themeLibraryService: ThemeLibraryService) {}
-  
-  ngAfterViewInit() {
-    // Appliquer un thème fixe
-    this.themeLibraryService.applyTheme('light-melancholy', this.monElement.nativeElement);
-  }
-  
-  changerTheme(themeId: string): void {
-    // Changer le thème dynamiquement
-    this.themeLibraryService.applyTheme(themeId, this.monElement.nativeElement);
+  changerThemeGlobal(): void {
+    // Appliquer n'importe quel thème à l'application entière
+    this.themeManager.applyTheme('dark-passion');
   }
 }
 ```
 
-Cette approche est recommandée lorsque vous souhaitez changer le thème en fonction des interactions utilisateur.
+### Option 2 : Utilisation via la fonction utilitaire
 
-### 3. Utilisation du composant `ThemeLibraryComponent`
+```typescript
+import { appliquerTheme, THEMES } from 'src/app/utils/theme-utils';
 
-Pour une interface complète de sélection de thèmes :
+// Dans une méthode de votre composant
+appliquerThemePassionSombre(): void {
+  appliquerTheme(THEMES.DARK_PASSION);
+}
+```
+
+### Option 3 : Utilisation du composant de sélection de thème
+
+Intégrez le sélecteur de thème dans votre interface :
 
 ```html
-<app-theme-library [targetElement]="monElement"></app-theme-library>
+<app-theme-switcher></app-theme-switcher>
+```
 
-<div #monElement>
-  Ce contenu changera de thème en fonction de la sélection dans le composant ci-dessus
+## 4. Thèmes Spécifiques pour Éléments Individuels
+
+Si vous souhaitez appliquer des thèmes à des éléments spécifiques (plutôt qu'à toute l'application), vous pouvez utiliser les options suivantes :
+
+### Option 1 : Utilisation de la directive
+
+```html
+<div [appThemeApply]="'light-melancholy'">
+  Ce contenu aura le thème Mélancolie Claire
 </div>
 ```
 
-Cette méthode est utile lorsque vous souhaitez offrir à l'utilisateur une interface pour sélectionner et prévisualiser les thèmes.
-
-## Compatibilité avec le mode sombre
-
-La bibliothèque de thèmes est entièrement compatible avec le mode sombre de l'application. Les thèmes s'adapteront automatiquement :
-
-- Si le mode sombre est activé, les propriétés `darkMode` et `darkGradient` du thème seront utilisées
-- Si le mode clair est activé, les propriétés `lightMode` et `lightGradient` seront utilisées
-
-## Exemple complet
-
-Une démonstration complète est disponible à l'URL : `/test/theme-demo`
-
-Cette page démontre les trois méthodes d'utilisation des thèmes et vous permet de voir comment ils s'adaptent à différents éléments d'interface.
-
-## Dépannage
-
-Si vous rencontrez des problèmes avec la bibliothèque de thèmes :
-
-1. Assurez-vous que la directive `ThemeApplyDirective` est bien importée dans votre module ou component standalone
-2. Vérifiez que l'ID du thème existe bien dans la bibliothèque
-3. Si le thème ne s'applique pas, vérifiez la console pour d'éventuelles erreurs
-
-## Étendre la bibliothèque
-
-### Créer un nouveau thème
-
-Pour ajouter un nouveau thème à la bibliothèque, modifiez le fichier `theme-library.service.ts` :
+### Option 2 : Utilisation du service ThemeLibraryService
 
 ```typescript
-// Dans le constructeur de ThemeLibraryService ou dans une méthode dédiée
-this.themeLibrary['mon-nouveau-theme'] = {
-  name: 'Mon Nouveau Thème',
-  description: 'Description du thème',
-  previewColor: '#hexcode',
-  lightMode: 'bg-color-50 text-color-900',
-  darkMode: 'bg-color-950 text-white',
-  lightGradient: 'bg-gradient-to-br from-color-50 to-color-100',
-  darkGradient: 'bg-gradient-to-br from-color-950 to-color-900',
-  colors: {
-    primary: '#hexcode',
-    secondary: '#hexcode',
-    text: '#hexcode',
-    background: '#hexcode',
+import { ThemeLibraryService } from 'src/app/services/theme-library.service';
+
+@Component({...})
+export class MonComposant implements AfterViewInit {
+  @ViewChild('monElement') monElement!: ElementRef<HTMLElement>;
+  
+  constructor(private themeLibrary: ThemeLibraryService) {}
+  
+  ngAfterViewInit(): void {
+    this.themeLibrary.applyTheme('light-neutral', this.monElement.nativeElement);
   }
-};
-```
-
-### Utiliser les thèmes dans des composants personnalisés
-
-Vous pouvez également créer vos propres composants qui utilisent la bibliothèque de thèmes :
-
-```typescript
-@Component({
-  selector: 'app-themed-card',
-  template: `
-    <div class="card" [appThemeApply]="themeId">
-      <div class="card-header">{{ title }}</div>
-      <div class="card-body">
-        <ng-content></ng-content>
-      </div>
-    </div>
-  `,
-  standalone: true,
-  imports: [CommonModule, ThemeApplyDirective]
-})
-export class ThemedCardComponent {
-  @Input() themeId: string = 'light-neutral';
-  @Input() title: string = '';
 }
 ```
 
-Utilisation :
-```html
-<app-themed-card themeId="dark-passion" title="Mon titre">
-  Contenu de la carte
-</app-themed-card>
+## 5. Compatibilité avec le Mode Sombre
+
+Le système de thèmes est entièrement compatible avec le mode sombre :
+
+- Les thèmes dont l'ID contient "dark" activent automatiquement le mode sombre
+- Les autres thèmes utilisent le mode clair par défaut
+- Le mode sombre/clair est synchronisé avec les préférences du système
+
+## 6. Intégration dans une Nouvelle Page ou Composant
+
+### Pour ajouter le sélecteur de thème dans une page
+
+```typescript
+import { Component } from '@angular/core';
+import { ThemeSwitcherComponent } from '../../components/theme-switcher/theme-switcher.component';
+
+@Component({
+  selector: 'app-ma-page',
+  standalone: true,
+  imports: [CommonModule, ThemeSwitcherComponent],
+  template: `
+    <div class="container mx-auto">
+      <h1>Ma Page</h1>
+      
+      <!-- Sélecteur de thème global -->
+      <app-theme-switcher></app-theme-switcher>
+      
+      <!-- Contenu de la page -->
+    </div>
+  `
+})
+export class MaPageComponent {}
 ```
+
+### Pour ajouter un bouton d'application de thème
+
+```html
+<button (click)="appliquerTheme(THEMES.DARK_PASSION)">
+  Appliquer Passion Sombre
+</button>
+```
+
+## 7. Exemples d'utilisation
+
+### Exemple 1 : Changer le thème selon l'humeur d'un événement
+
+```typescript
+// Dans un composant de détail d'événement
+appliquerThemeSelonHumeur(humeur: string): void {
+  switch(humeur) {
+    case 'joyeux':
+      this.themeManager.applyTheme('theme-joy');
+      break;
+    case 'triste':
+      this.themeManager.applyTheme('light-melancholy');
+      break;
+    case 'passionné':
+      this.themeManager.applyTheme('dark-passion');
+      break;
+    default:
+      this.themeManager.applyTheme('light-neutral');
+  }
+}
+```
+
+### Exemple 2 : Utilisation dans un service personnalisé
+
+```typescript
+@Injectable({
+  providedIn: 'root'
+})
+export class HumeurService {
+  constructor(private themeManager: GlobalThemeManagerService) {}
+  
+  definirHumeur(type: string): void {
+    // Logique métier...
+    
+    // Changer le thème en fonction de l'humeur
+    const themeMap = {
+      'joyeux': 'theme-joy',
+      'melancolique': 'light-melancholy',
+      'intense': 'theme-intensity',
+      'passionne': 'dark-passion'
+    };
+    
+    const theme = themeMap[type] || 'light-neutral';
+    this.themeManager.applyTheme(theme);
+  }
+}
+```
+
+## 8. Dépannage
+
+Si vous rencontrez des problèmes :
+
+1. Vérifiez que les services sont correctement importés et injectés
+2. Assurez-vous que l'ID du thème existe dans la liste des thèmes disponibles
+3. Consultez la console pour d'éventuels messages d'erreur
+4. Pour les problèmes de performance, préférez l'utilisation du gestionnaire global plutôt que des directives multiples
+
+## 9. Création de Nouveaux Thèmes
+
+Pour ajouter un nouveau thème personnalisé, modifiez le fichier `theme-library.service.ts` et ajoutez-le au tableau `availableThemes` du service `GlobalThemeManagerService`. 
