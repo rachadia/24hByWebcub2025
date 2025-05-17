@@ -40,9 +40,9 @@ export class AppComponent implements OnInit {
       this.currentTheme = theme;
     });
 
-    // Check if user prefers dark mode
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      document.documentElement.classList.add('dark');
+    // Appliquer le thème par défaut si aucun n'est défini
+    if (!this.currentTheme) {
+      this.themeService.setTheme('theme-neutre');
     }
 
     // Vérifier la préférence de mode sombre/clair
@@ -57,7 +57,7 @@ export class AppComponent implements OnInit {
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
       if (e.matches && localStorage.getItem('darkMode') !== 'false') {
         document.documentElement.classList.add('dark');
-      } else {
+      } else if (!e.matches && localStorage.getItem('darkMode') !== 'true') {
         document.documentElement.classList.remove('dark');
       }
     });
