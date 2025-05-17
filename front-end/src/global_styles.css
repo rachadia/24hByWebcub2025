@@ -99,6 +99,10 @@
     @apply badge bg-neutre-100 text-neutre-800 dark:bg-neutre-900 dark:text-neutre-300;
   }
 
+  .badge-intensity {
+    @apply badge bg-intensity-100 text-intensity-800 dark:bg-intensity-900 dark:text-intensity-300;
+  }
+
   .avatar {
     @apply relative inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700;
   }
@@ -134,6 +138,10 @@
 
 .theme-neutre {
   @apply bg-gradient-to-br from-neutre-50 to-neutre-100 dark:from-neutre-950 dark:to-neutre-900;
+}
+
+.theme-intensity {
+  @apply bg-gradient-to-br from-intensity-50 to-intensity-100 dark:from-intensity-950 dark:to-intensity-900;
 }
 
 /* Transitions and animations */

@@ -8,11 +8,11 @@ WORKDIR /app
 
 # Installation des dépendances du frontend
 COPY front-end/package*.json ./front-end/
-RUN cd front-end && npm install
+RUN cd front-end && npm ci
 
 # Installation des dépendances du backend
 COPY back-end/package*.json ./back-end/
-RUN cd back-end && npm install
+RUN cd back-end && npm ci
 
 # Copie du code source
 COPY front-end ./front-end

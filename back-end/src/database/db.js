@@ -1,15 +1,14 @@
 import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
-
 dotenv.config();
 
 // Database configuration
 const dbConfig = {
-  host: process.env.DB_HOST || 'localhost',
+  host: process.env.DB_HOST || "192.168.1.168",
   port: process.env.DB_PORT || 3306,
-  user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || 'password',
-  database: process.env.DB_NAME || 'auth_db',
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASSWORD || "LesM4ki!",
+  database: process.env.DB_NAME || "lesmakiscodeu_the_end_page_db",
 };
 
 // Create a pool of connections

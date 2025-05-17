@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-export type Emotion = 'joy' | 'sadness' | 'anger' | 'fear';
+export type Emotion = 'joy' | 'sadness' | 'anger' | 'fear' | 'intensity';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +30,12 @@ export class EmotionService {
     'alarmed', 'apprehensive', 'unsure', 'uncertain', 'helpless', 'threatened'
   ];
 
+  private intensityKeywords = [
+    'intense', 'powerful', 'strong', 'vibrant', 'alive', 'energetic', 'dynamic',
+    'passionate', 'driven', 'determined', 'focused', 'motivated', 'inspired',
+    'engaged', 'stimulated', 'absorbed', 'immersed', 'involved', 'committed'
+  ];
+
   constructor() { }
 
   // Simple emotion detection based on keyword matching
@@ -46,6 +52,8 @@ export class EmotionService {
       return 'anger';
     } else if (lowerText.includes('scared') || lowerText.includes('afraid') || lowerText.includes('fearful')) {
       return 'fear';
+    } else if (lowerText.includes('intense') || lowerText.includes('powerful') || lowerText.includes('energetic')) {
+      return 'intensity';
     }
     
     // Default to joy if no emotion is detected
@@ -62,6 +70,8 @@ export class EmotionService {
         return 'anger-500';
       case 'fear':
         return 'fear-500';
+      case 'intensity':
+        return 'intensity-500';
       default:
         return 'primary-500';
     }
@@ -77,6 +87,8 @@ export class EmotionService {
         return 'Anger';
       case 'fear':
         return 'Fear';
+      case 'intensity':
+        return 'Intensité';
       default:
         return 'Unknown';
     }
@@ -92,6 +104,8 @@ export class EmotionService {
         return '😡';
       case 'fear':
         return '😨';
+      case 'intensity':
+        return '⚡';
       default:
         return '😐';
     }

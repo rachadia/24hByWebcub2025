@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
+import { TEST_ROUTES } from './pages/test/test.routes';
 
 export const routes: Routes = [
   { 
@@ -50,6 +51,14 @@ export const routes: Routes = [
     path: 'notifications',
     canActivate: [AuthGuard],
     loadComponent: () => import('./pages/notifications/notifications.component').then(m => m.NotificationsComponent)
+  },
+  {
+    path: 'test',
+    children: TEST_ROUTES
+  },
+  {
+    path: 'test/theme-demo',
+    loadComponent: () => import('./pages/test/theme-demo/theme-demo.component').then(m => m.ThemeDemoComponent)
   },
   { 
     path: '**', 

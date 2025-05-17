@@ -62,7 +62,7 @@ import { ThemeSelectorComponent } from '../../components/theme-selector/theme-se
       </div>
 
       <!-- Stats -->
-      <div class="mb-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="mb-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
         <!-- Total events -->
         <div class="overflow-hidden rounded-lg bg-white p-5 shadow-elevation-1 dark:bg-gray-800">
           <dt class="truncate text-sm font-medium text-gray-500 dark:text-gray-400">Total Events</dt>
@@ -90,6 +90,13 @@ import { ThemeSelectorComponent } from '../../components/theme-selector/theme-se
             {{ getAngryEventsCount() }}
           </dd>
         </div>
+
+        <div class="overflow-hidden rounded-lg bg-white p-5 shadow-elevation-1 dark:bg-gray-800">
+          <dt class="truncate text-sm font-medium text-gray-500 dark:text-gray-400">Intense Events</dt>
+          <dd class="mt-1 text-3xl font-semibold text-intensity-600 dark:text-intensity-400">
+            {{ getIntensityEventsCount() }}
+          </dd>
+        </div>
       </div>
 
       <!-- Recent activity -->
@@ -112,7 +119,8 @@ import { ThemeSelectorComponent } from '../../components/theme-selector/theme-se
                         'bg-joy-100 text-joy-800 dark:bg-joy-900 dark:text-joy-300': event.emotion === 'joy',
                         'bg-sadness-100 text-sadness-800 dark:bg-sadness-900 dark:text-sadness-300': event.emotion === 'sadness',
                         'bg-anger-100 text-anger-800 dark:bg-anger-900 dark:text-anger-300': event.emotion === 'anger',
-                        'bg-fear-100 text-fear-800 dark:bg-fear-900 dark:text-fear-300': event.emotion === 'fear'
+                        'bg-fear-100 text-fear-800 dark:bg-fear-900 dark:text-fear-300': event.emotion === 'fear',
+                        'bg-intensity-100 text-intensity-800 dark:bg-intensity-900 dark:text-intensity-300': event.emotion === 'intensity'
                       }"
                     >
                       {{ getEmotionIcon(event.emotion) }}
@@ -195,6 +203,8 @@ export class ProfileComponent implements OnInit {
         return '😡';
       case 'fear':
         return '😨';
+      case 'intensity':
+        return '⚡';
       default:
         return '😐';
     }
@@ -214,5 +224,9 @@ export class ProfileComponent implements OnInit {
 
   getFearEventsCount(): number {
     return this.events.filter(e => e.emotion === 'fear').length;
+  }
+
+  getIntensityEventsCount(): number {
+    return this.events.filter(e => e.emotion === 'intensity').length;
   }
 }

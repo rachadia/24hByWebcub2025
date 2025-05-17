@@ -36,16 +36,16 @@ export class ThemeService {
       previewColor: '#ef4444' 
     },
     { 
-      id: 'theme-fear', 
-      name: 'Mode Mystère', 
-      description: 'Un thème sombre et subtil', 
-      previewColor: '#64748b' 
-    },
-    { 
       id: 'theme-neutre', 
       name: 'Mode Neutre', 
       description: 'Un thème équilibré et épuré', 
       previewColor: '#6b7280' 
+    },
+    { 
+      id: 'theme-intensity', 
+      name: 'Mode Intensité', 
+      description: 'Un thème énergique et vibrant, sans être extrême',
+      previewColor: '#8b5cf6' 
     }
   ];
 

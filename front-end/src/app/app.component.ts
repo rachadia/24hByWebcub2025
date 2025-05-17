@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ThemeService } from './services/theme.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -22,16 +23,35 @@ import { ThemeService } from './services/theme.service';
 export class AppComponent implements OnInit {
   currentTheme = '';
 
-  constructor(private themeService: ThemeService) {}
+  constructor(
+    private themeService: ThemeService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.themeService.theme$.subscribe(theme => {
       this.currentTheme = theme;
     });
 
-    // Appliquer le thème par défaut si aucun n'est défini
-    if (!this.currentTheme) {
-      this.themeService.setTheme('theme-neutre');
+    // Récupérer le thème sauvegardé
+    const savedTheme = localStorage.getItem('theme');
+    const isLoggedIn = this.authService.isAuthenticated();
+    
+    // Si l'utilisateur est connecté et a déjà choisi un thème
+    if (isLoggedIn && savedTheme) {
+      // Si le thème sauvegardé est 'theme-fear' (supprimé), utiliser un thème épanouissant
+      if (savedTheme === 'theme-fear') {
+        this.themeService.setTheme('theme-intensity');
+      } else {
+        // Sinon, conserver son choix précédent
+        this.themeService.setTheme(savedTheme);
+      }
+    } 
+    // Si aucun thème n'est défini ou si l'utilisateur n'est pas connecté et n'a pas de préférence
+    else if (!this.currentTheme || !savedTheme) {
+      // Attribuer un thème épanouissant par défaut (alternance entre Intensité et Joyeux)
+      const randomTheme = Math.random() > 0.5 ? 'theme-intensity' : 'theme-joy';
+      this.themeService.setTheme(randomTheme);
     }
 
     // Vérifier la préférence de mode sombre/clair
