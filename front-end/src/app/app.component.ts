@@ -7,6 +7,7 @@ import { ThemeService } from './services/theme.service';
 import { AuthService } from './services/auth.service';
 import { GlobalThemeManagerService } from './services/global-theme-manager.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
