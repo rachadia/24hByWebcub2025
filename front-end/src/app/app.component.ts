@@ -10,7 +10,7 @@ import { ThemeService } from './services/theme.service';
   standalone: true,
   imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent],
   template: `
-    <div class="cosmic-body flex min-h-screen flex-col" [ngClass]="currentTheme || 'theme-cosmic'">
+    <div class="flex min-h-screen flex-col" [ngClass]="currentTheme">
       <app-header></app-header>
       <main class="flex-1 px-4 py-6 sm:px-6 lg:px-8">
         <router-outlet></router-outlet>
@@ -29,14 +29,6 @@ export class AppComponent implements OnInit {
       this.currentTheme = theme;
     });
 
-    // Si aucun thème n'est défini, utiliser le thème cosmique
-    if (!this.currentTheme) {
-      this.themeService.setTheme('theme-cosmic');
-    }
-
-    // Activer le mode sombre par défaut pour le thème cosmique
-    document.documentElement.classList.add('dark');
-
     // Check if user prefers dark mode
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       document.documentElement.classList.add('dark');
@@ -47,12 +39,7 @@ export class AppComponent implements OnInit {
       if (e.matches) {
         document.documentElement.classList.add('dark');
       } else {
-        // Toujours conserver le mode sombre pour le thème cosmique
-        if (this.currentTheme === 'theme-cosmic') {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
+        document.documentElement.classList.remove('dark');
       }
     });
   }

@@ -110,23 +110,16 @@ module.exports = {
           900: '#111827',
           950: '#030712',
         },
-        'endpage-dark': '#0F0C1D',
-        'endpage-blue': '#1D1A3A',
-        'endpage-pink': '#FF1F75',
-        'endpage-purple': '#9B87F5',
-        'endpage-lavender': '#E5DEFF'
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
         display: ['Poppins', 'sans-serif'],
-        cosmic: ['SpaceGrotesk', 'sans-serif'],
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
         'slide-up': 'slideUp 0.5s ease-out',
         'scale-in': 'scaleIn 0.3s ease-out',
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'pulse-glow': 'pulse-glow 2s infinite',
       },
       keyframes: {
         fadeIn: {
@@ -141,13 +134,6 @@ module.exports = {
           '0%': { transform: 'scale(0.9)', opacity: '0' },
           '100%': { transform: 'scale(1)', opacity: '1' },
         },
-        'pulse-glow': {
-          '0%, 100%': { boxShadow: '0 0 15px 0 rgba(255, 31, 117, 0.7)' },
-          '50%': { boxShadow: '0 0 30px 10px rgba(255, 31, 117, 0.5)' }
-        },
-      },
-      backgroundImage: {
-        'cosmic-gradient': 'radial-gradient(circle at 50% 50%, #1D1A3A 0%, #0F0C1D 100%)'
       },
       boxShadow: {
         'elevation-1': '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
@@ -155,8 +141,6 @@ module.exports = {
         'elevation-3': '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
         'elevation-4': '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)',
         'elevation-5': '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)',
-        'neon-pink': '0 0 10px rgba(255, 31, 117, 0.7)',
-        'neon-purple': '0 0 10px rgba(155, 135, 245, 0.7)',
       },
     },
   },
