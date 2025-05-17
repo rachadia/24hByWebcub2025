@@ -21,6 +21,7 @@
     "@nlpjs/core": "^5.0.0-alpha.5",
     "@nlpjs/lang-fr": "^5.0.0-alpha.5",
     "@nlpjs/nlp": "^5.0.0-alpha.5",
+    "face-api.js": "^0.22.2",
     "rxjs": "^7.8.1",
     "tslib": "^2.5.0",
     "zone.js": "~0.15.0"
@@ -29,6 +30,8 @@
     "@angular/build": "^19.2.0",
     "@angular/cli": "^19.2.0",
     "@angular/compiler-cli": "^19.2.0",
+    "@types/node": "^22.15.18",
+    "@types/webgl2": "^0.0.11",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.24",
     "tailwindcss": "^3.3.2",
