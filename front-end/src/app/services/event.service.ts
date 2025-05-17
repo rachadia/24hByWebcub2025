@@ -1,20 +1,31 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delay, map, tap } from 'rxjs/operators';
 import { Event } from '../models/event.model';
 import { EmotionService } from './emotion.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
+  private apiUrl = `${environment.apiUrl}/events`;
   private events: Event[] = [];
   private eventsSubject = new BehaviorSubject<Event[]>([]);
   public events$ = this.eventsSubject.asObservable();
 
-  constructor(private emotionService: EmotionService) {
+  constructor(private http: HttpClient, private emotionService: EmotionService) {
     // Initialize with mock data for development
     this.initMockEvents();
+  }
+
+  private getHeaders(): HttpHeaders {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+    if (currentUser && currentUser.token) {
+      return new HttpHeaders().set('Authorization', `Bearer ${currentUser.token}`);
+    }
+    return new HttpHeaders();
   }
 
   private initMockEvents() {
@@ -69,72 +80,23 @@ export class EventService {
   }
 
   getEvents(): Observable<Event[]> {
-    return of(this.events).pipe(delay(500));
+    return this.http.get<Event[]>(this.apiUrl, { headers: this.getHeaders() });
   }
 
-  getEventById(id: string): Observable<Event | undefined> {
-    return of(this.events.find(event => event.id === id)).pipe(delay(300));
+  getEventById(id: string): Observable<Event> {
+    return this.http.get<Event>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
   }
 
   createEvent(eventData: Partial<Event>): Observable<Event> {
-    const emotion = this.emotionService.detectEmotion(eventData.content || '');
-    
-    const newEvent: Event = {
-      id: Date.now().toString(),
-      userId: '1', // Would come from auth service in a real app
-      title: eventData.title || '',
-      content: eventData.content || '',
-      createdAt: new Date(),
-      emotion: emotion,
-      theme: `theme-${emotion}`,
-      attachments: eventData.attachments || [],
-      comments: [],
-      likes: 0
-    };
-
-    this.events.unshift(newEvent);
-    this.eventsSubject.next([...this.events]);
-    
-    return of(newEvent).pipe(delay(500));
+    return this.http.post<Event>(this.apiUrl, eventData, { headers: this.getHeaders() });
   }
 
   updateEvent(id: string, eventData: Partial<Event>): Observable<Event> {
-    const index = this.events.findIndex(event => event.id === id);
-    
-    if (index === -1) {
-      throw new Error('Event not found');
-    }
-
-    // If content changed, re-detect emotion
-    let emotion = this.events[index].emotion;
-    if (eventData.content && eventData.content !== this.events[index].content) {
-      emotion = this.emotionService.detectEmotion(eventData.content);
-    }
-
-    const updatedEvent: Event = {
-      ...this.events[index],
-      ...eventData,
-      emotion: emotion,
-      theme: `theme-${emotion}`
-    };
-
-    this.events[index] = updatedEvent;
-    this.eventsSubject.next([...this.events]);
-    
-    return of(updatedEvent).pipe(delay(500));
+    return this.http.put<Event>(`${this.apiUrl}/${id}`, eventData, { headers: this.getHeaders() });
   }
 
-  deleteEvent(id: string): Observable<boolean> {
-    const index = this.events.findIndex(event => event.id === id);
-    
-    if (index === -1) {
-      return of(false);
-    }
-
-    this.events.splice(index, 1);
-    this.eventsSubject.next([...this.events]);
-    
-    return of(true).pipe(delay(500));
+  deleteEvent(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
   }
 
   addComment(eventId: string, userId: string, username: string, content: string): Observable<Event> {
@@ -175,5 +137,9 @@ export class EventService {
 
   getEventsByEmotion(emotion: string): Observable<Event[]> {
     return of(this.events.filter(event => event.emotion === emotion)).pipe(delay(500));
+  }
+
+  getEventsByUserId(userId: string): Observable<Event[]> {
+    return this.http.get<Event[]>(`${this.apiUrl}/user/${userId}`, { headers: this.getHeaders() });
   }
 }

@@ -264,7 +264,7 @@ export class EventCreateComponent {
       description: ['', [Validators.required, Validators.minLength(10)]],
       content: ['', [Validators.required, Validators.minLength(10)]],
       emotion: ['', Validators.required],
-      attachments: [[]]
+      theme: ['']
     });
 
     // Listen to content changes to detect emotion
@@ -291,7 +291,6 @@ export class EventCreateComponent {
     // S'abonner aux réponses du service NLP
     this.nlpService.getResponse().subscribe(response => {
       if (response) {
-        console.log("response: ",response);
         this.detectedEmotion = this.emotionService.detectEmotion(response);
         this.emotionDisplayName = this.emotionService.getEmotionDisplayName(this.detectedEmotion);
         this.emotionIcon = this.emotionService.getEmotionIcon(this.detectedEmotion);
@@ -305,6 +304,11 @@ export class EventCreateComponent {
     }
       
     this.isSubmitting = true;
+    this.eventForm.patchValue({
+      theme: 'theme-' + this.eventForm.value.emotion
+    });
+    
+    
 
     this.eventService.createEvent(this.eventForm.value).subscribe({
       next: event => {
