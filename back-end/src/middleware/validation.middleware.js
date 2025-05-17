@@ -99,3 +99,88 @@ export const userIdValidation = [
   
   validate
 ];
+
+// Event creation validation rules
+export const createEventValidation = [
+  body('title')
+    .isLength({ min: 3, max: 255 })
+    .withMessage('Title must be between 3 and 255 characters'),
+  
+  body('content')
+    .optional()
+    .isLength({ max: 1000 })
+    .withMessage('Content must not exceed 1000 characters'),
+  
+  body('theme')
+    .optional()
+    .isLength({ max: 100 })
+    .withMessage('Theme must not exceed 100 characters'),
+  
+  body('emotion')
+    .optional()
+    .isLength({ max: 50 })
+    .withMessage('Emotion must not exceed 50 characters'),
+  
+  validate
+];
+
+// Event update validation rules
+export const updateEventValidation = [
+  body('title')
+    .optional()
+    .isLength({ min: 3, max: 255 })
+    .withMessage('Title must be between 3 and 255 characters'),
+  
+  body('content')
+    .optional()
+    .isLength({ max: 1000 })
+    .withMessage('Content must not exceed 1000 characters'),
+  
+  body('theme')
+    .optional()
+    .isLength({ max: 100 })
+    .withMessage('Theme must not exceed 100 characters'),
+  
+  body('emotion')
+    .optional()
+    .isLength({ max: 50 })
+    .withMessage('Emotion must not exceed 50 characters'),
+  
+  validate
+];
+
+// Event ID validation
+export const eventIdValidation = [
+  param('id')
+    .isInt({ min: 1 })
+    .withMessage('Event ID must be a positive integer'),
+  
+  validate
+];
+
+// Comment validation rules
+export const commentValidation = [
+  body('content')
+    .isLength({ min: 1, max: 500 })
+    .withMessage('Comment must be between 1 and 500 characters'),
+  
+  validate
+];
+
+// Attachment validation rules
+export const attachmentValidation = [
+  body('attachmentUrl')
+    .isURL()
+    .withMessage('Please provide a valid URL for the attachment'),
+  
+  validate
+];
+
+// Like validation rules
+export const likeValidation = [
+  body('increment')
+    .isBoolean()
+    .withMessage('Increment must be a boolean value'),
+  
+  validate
+];

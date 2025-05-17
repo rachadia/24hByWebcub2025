@@ -29,6 +29,12 @@ const router = express.Router();
  *     responses:
  *       200:
  *         description: List of users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User'
  *       401:
  *         description: Unauthorized
  *       403:
@@ -54,6 +60,10 @@ router.get('/', authenticate, isAdmin, UserController.getAllUsers);
  *     responses:
  *       200:
  *         description: User details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
  *       404:
  *         description: User not found
  */
@@ -93,6 +103,10 @@ router.get('/:id', authenticate, userIdValidation, UserController.getUserById);
  *     responses:
  *       200:
  *         description: User updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
  *       403:
  *         description: Forbidden - can only update own profile
  *       404:
