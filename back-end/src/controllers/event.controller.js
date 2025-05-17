@@ -41,7 +41,7 @@ class EventController {
       
       const events = await EventModel.findByUserId(userId);
       
-      res.status(200).json({ events });
+      res.status(200).json(events);
     } catch (error) {
       next(error);
     }
