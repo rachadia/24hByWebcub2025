@@ -95,6 +95,10 @@
     @apply badge bg-fear-100 text-fear-800 dark:bg-fear-900 dark:text-fear-300;
   }
 
+  .badge-neutre {
+    @apply badge bg-neutre-100 text-neutre-800 dark:bg-neutre-900 dark:text-neutre-300;
+  }
+
   .avatar {
     @apply relative inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700;
   }
@@ -126,6 +130,10 @@
 
 .theme-fear {
   @apply bg-gradient-to-br from-fear-50 to-fear-100 dark:from-fear-950 dark:to-fear-900;
+}
+
+.theme-neutre {
+  @apply bg-gradient-to-br from-neutre-50 to-neutre-100 dark:from-neutre-950 dark:to-neutre-900;
 }
 
 /* Transitions and animations */
