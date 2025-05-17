@@ -8,6 +8,7 @@ import { AuthService } from './services/auth.service';
 import { GlobalThemeManagerService } from './services/global-theme-manager.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from './services/auth.service';
+import { GlobalThemeManagerService } from './services/global-theme-manager.service';
 
 @Component({
   selector: 'app-root',
