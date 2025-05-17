@@ -5,4 +5,5 @@ export interface User {
   profileImage?: string;
   bio?: string;
   joinDate?: Date;
+  username: string;
 }
