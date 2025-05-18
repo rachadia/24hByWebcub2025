@@ -361,5 +361,4 @@ export class EventDetailComponent implements OnInit {
       console.error('Failed to copy text: ', err);
     });
   }
-
 }
