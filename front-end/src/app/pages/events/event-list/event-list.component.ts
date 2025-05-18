@@ -183,8 +183,10 @@ export class EventListComponent implements OnInit {
   loadEvents(): void {
     const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
     if (currentUser) {
+      console.log("currentUser", currentUser);
       this.eventService.getEventsByUserId(currentUser.id).subscribe({
         next: events => {
+          console.log("events", events);
           this.events = events;
           this.filteredEvents = [...this.events];
           this.isLoading = false;

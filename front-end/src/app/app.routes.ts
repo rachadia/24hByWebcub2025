@@ -32,6 +32,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/events/event-create/event-create.component').then(m => m.EventCreateComponent)
       },
       {
+        path: 'podium',
+        loadComponent: () => import('./pages/events/event-podium/event-podium.component').then(m => m.EventPodiumComponent)
+      },
+      {
         path: ':id',
         loadComponent: () => import('./pages/events/event-detail/event-detail.component').then(m => m.EventDetailComponent)
       },
