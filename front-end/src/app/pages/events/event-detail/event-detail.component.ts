@@ -10,8 +10,6 @@ import { EmotionService } from '../../../services/emotion.service';
 import { THEMES } from '../../../utils/theme-utils';
 import { appliquerTheme } from '../../../utils/theme-utils';
 import { ThemeService } from '../../../services/theme.service';
-import { THEMES } from '../../../utils/theme-utils';
-import { appliquerTheme } from '../../../utils/theme-utils';
 
 @Component({
   selector: 'app-event-detail',
@@ -363,22 +361,5 @@ export class EventDetailComponent implements OnInit {
       console.error('Failed to copy text: ', err);
     });
   }
-  switchTheme(theme: string): void {
-    
-    switch (theme) {
-      case 'joy':
-        appliquerTheme(THEMES.INTENSITY);
-        break;
-      case 'sadness':
-        //this.themeSubject.next('sadness');
-        appliquerTheme(THEMES.LIGHT_MELANCHOLY);
-        break;
-      case 'anger':
-        //this.themeSubject.next('anger');
-        appliquerTheme(THEMES.DARK_PASSION);
-        break;
-    default:
-      break;
-  }
-}
+
 }

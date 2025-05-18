@@ -6,12 +6,11 @@ import { AuthService } from '../../services/auth.service';
 import { EventService } from '../../services/event.service';
 import { User } from '../../models/user.model';
 import { Event } from '../../models/event.model';
-import { ThemeSelectorComponent } from '../../components/theme-selector/theme-selector.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, ThemeSelectorComponent],
+  imports: [CommonModule, RouterModule, FormsModule],
   template: `
     <div class="mx-auto max-w-7xl">
       <div class="mb-8">
