@@ -37,12 +37,20 @@ import { TranslateModule } from '@ngx-translate/core';
               </a>
             </div>
             <ng-template #createEventButton>
-              <a
-                routerLink="/events/new"
-                class="flex items-center justify-center rounded-md border border-transparent bg-primary-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-primary-700 dark:bg-primary-700 dark:hover:bg-primary-600"
-              >
-                {{ 'HOME.CTA.CREATE_EVENT' | translate }}
-              </a>
+              <div class="space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5 sm:space-y-0">
+                <a
+                  routerLink="/events/new"
+                  class="flex items-center justify-center rounded-md border border-transparent bg-primary-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-primary-700 dark:bg-primary-700 dark:hover:bg-primary-600 sm:px-8"
+                >
+                  {{ 'HOME.CTA.CREATE_EVENT' | translate }}
+                </a>
+                <a
+                  routerLink="/events/podium"
+                  class="flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-3 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700 sm:px-8"
+                >
+                  <span class="mr-2">🏆</span> Hall of Fame
+                </a>
+              </div>
             </ng-template>
           </div>
         </div>
@@ -115,14 +123,14 @@ import { TranslateModule } from '@ngx-translate/core';
                 {{ 'HOME.CTA.GET_STARTED' | translate }}
               </a>
             </div>
-            <!--<div class="ml-3 inline-flex rounded-md shadow">
+            <div *ngIf="isLoggedIn" class="ml-3 inline-flex rounded-md shadow">
               <a
-                routerLink="/auth/login"
+                routerLink="/events/podium"
                 class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-5 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
               >
-                {{ 'HOME.CTA.LEARN_MORE' | translate }}
+                <span class="mr-2">🏆</span> Hall of Fame
               </a>
-            </div>-->
+            </div>
           </div>
         </div>
       </div>

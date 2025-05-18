@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, of, mergeMap } from 'rxjs';
+import { BehaviorSubject, Observable, of, mergeMap, catchError } from 'rxjs';
 import { delay, map, tap } from 'rxjs/operators';
 import { Event } from '../models/event.model';
 import { EmotionService } from './emotion.service';
@@ -10,6 +10,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class EventService {
+ 
   private apiUrl = `${environment.apiUrl}/events`;
   private events: Event[] = [];
   private eventsSubject = new BehaviorSubject<Event[]>([]);
@@ -79,7 +80,12 @@ export class EventService {
   }
 
   getEvents(): Observable<Event[]> {
-    return this.http.get<Event[]>(this.apiUrl, { headers: this.getHeaders() });
+    return this.http.get<Event[]>(this.apiUrl, { headers: this.getHeaders() }).pipe(
+      catchError((error) => {
+        console.error('Error fetching events', error);
+        return of([]);
+      })
+    );
   }
 
   getEventById(id: string): Observable<Event> {
@@ -94,11 +100,9 @@ export class EventService {
     return this.http.put<Event>(`${this.apiUrl}/${id}`, eventData, { headers: this.getHeaders() });
   }
 
-
   updateLike(id: string): Observable<Event> {
     return this.http.post<Event>(`${this.apiUrl}/${id}/likes`, {increment: true}, { headers: this.getHeaders() });
   }
-
 
   updateComment(id: string, eventData: Partial<Event>): Observable<Event> {
     return this.http.post<Event>(`${this.apiUrl}/${id}/comments`, eventData, { headers: this.getHeaders() });
@@ -130,7 +134,6 @@ export class EventService {
           })
         );
       }),
-      // Flatten the nested Observable
       mergeMap(obs => obs)
     );
   }
@@ -141,7 +144,6 @@ export class EventService {
         if (!event) {
           throw new Error('Event not found');
         }
-        // Incrémenter les likes
         event.likes += 1;
         return this.updateLike(eventId).pipe(
           map(updatedEvent => {
@@ -150,7 +152,6 @@ export class EventService {
           })
         );
       }),
-      // Flatten the nested Observable
       mergeMap(obs => obs)
     );
   }
@@ -161,5 +162,14 @@ export class EventService {
 
   getEventsByUserId(userId: string): Observable<Event[]> {
     return this.http.get<Event[]>(`${this.apiUrl}/user/${userId}`, { headers: this.getHeaders() });
+  }
+
+  getTopEvents(): Observable<Event[]> {
+    return this.http.get<Event[]>(`${this.apiUrl}/podium`).pipe(
+      catchError((error) => {
+        console.error('Error fetching top events', error);
+        return of([]);
+      })
+    );
   }
 }
