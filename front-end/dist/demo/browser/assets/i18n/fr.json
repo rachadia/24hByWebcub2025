@@ -45,7 +45,7 @@
       "TITLE": "Créer un nouvel événement",
       "FORM": {
         "TITLE": "Titre",
-        "TITLE_PLACEHOLDER": "Donnez un titre à votre événement",
+        "TITLE_PLACEHOLDER": "Donnez un titre à votre histoire",
         "DATE": "Date",
         "DESCRIPTION": "Description",
         "DESCRIPTION_PLACEHOLDER": "Décrivez votre histoire...",
@@ -60,7 +60,7 @@
         "UPLOAD_CLICK": "Cliquez pour télécharger",
         "UPLOAD_DRAG": "ou glissez-déposez",
         "UPLOAD_FORMATS": "SVG, PNG, JPG ou GIF (MAX. 2MB)",
-        "UPLOAD_FUTURE": "(Le téléchargement de fichiers sera disponible dans une future mise à jour)",
+        "UPLOAD_FUTURE": "(vous pouvez sélectionner votre photo pour décrire votre humeur)",
         "DETECTED_MOOD": "Humeur détectée",
         "DETECTED_MOOD_DESC": "D'après votre texte, nous avons détecté une humeur {{emotion}}. Votre événement sera stylisé avec un thème correspondant."
       }
