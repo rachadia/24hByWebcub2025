@@ -123,6 +123,77 @@ const swaggerOptions = {
               type: 'string',
               format: 'date-time',
               description: 'The last update timestamp'
+            },
+            username: {
+              type: 'string',
+              description: 'Username of the event creator'
+            },
+            first_name: {
+              type: 'string',
+              description: 'First name of the event creator'
+            },
+            last_name: {
+              type: 'string',
+              description: 'Last name of the event creator'
+            },
+            profile_picture: {
+              type: 'string',
+              description: 'Profile picture URL of the event creator'
+            },
+            comment_count: {
+              type: 'integer',
+              description: 'Number of comments on the event'
+            },
+            like_count: {
+              type: 'integer',
+              description: 'Number of likes on the event'
+            },
+            comments: {
+              type: 'array',
+              description: 'List of comments on the event',
+              items: {
+                type: 'object',
+                properties: {
+                  id: {
+                    type: 'integer',
+                    description: 'The comment ID'
+                  },
+                  event_id: {
+                    type: 'integer',
+                    description: 'The ID of the event this comment belongs to'
+                  },
+                  user_id: {
+                    type: 'integer',
+                    description: 'The ID of the user who wrote the comment'
+                  },
+                  content: {
+                    type: 'string',
+                    description: 'The comment content'
+                  },
+                  created_at: {
+                    type: 'string',
+                    format: 'date-time',
+                    description: 'The creation timestamp'
+                  },
+                  updated_at: {
+                    type: 'string',
+                    format: 'date-time',
+                    description: 'The last update timestamp'
+                  },
+                  username: {
+                    type: 'string',
+                    description: 'Username of the comment author'
+                  },
+                  first_name: {
+                    type: 'string',
+                    description: 'First name of the comment author'
+                  },
+                  last_name: {
+                    type: 'string',
+                    description: 'Last name of the comment author'
+                  }
+                }
+              }
             }
           }
         },

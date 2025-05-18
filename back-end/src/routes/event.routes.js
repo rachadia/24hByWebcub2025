@@ -35,12 +35,30 @@ router.get('/', EventController.getAllEvents);
 
 /**
  * @swagger
+ * /api/events/podium:
+ *   get:
+ *     summary: Get podium of events sorted by likes
+ *     tags: [Events]
+ *     responses:
+ *       200:
+ *         description: List of events sorted by likes (descending)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Event'
+ *       500:
+ *         description: Server error
+ */
+router.get('/podium', EventController.getPodium);
+
+/**
+ * @swagger
  * /api/events/{id}:
  *   get:
  *     summary: Get event by ID
  *     tags: [Events]
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -69,7 +87,7 @@ router.get('/', EventController.getAllEvents);
  *       404:
  *         description: Event not found
  */
-router.get('/:id', authenticate, eventIdValidation, EventController.getEventById);
+router.get('/:id', eventIdValidation, EventController.getEventById);
 
 /**
  * @swagger
