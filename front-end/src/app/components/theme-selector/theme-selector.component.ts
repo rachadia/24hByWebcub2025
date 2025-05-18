@@ -60,7 +60,7 @@ export class ThemeSelectorComponent {
   isDarkMode = false;
 
   constructor(private themeService: ThemeService) {
-    this.themes = this.themeService.availableThemes;
+  //  this.themes = this.themeService.availableThemes;
     this.themeService.theme$.subscribe(theme => {
       this.currentTheme = theme;
     });

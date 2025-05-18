@@ -179,7 +179,8 @@ export class HeaderComponent implements OnInit {
 
     // Close menu when clicking outside
     document.addEventListener('click', this.closeMenuOnOutsideClick.bind(this));
-    appliquerTheme(THEMES.ANGER);
+
+
   }
 
   toggleUserMenu(): void {
@@ -202,4 +203,5 @@ export class HeaderComponent implements OnInit {
     this.themeService.toggleDarkMode();
     this.isDarkMode = this.themeService.isDarkMode();
   }
+
 }

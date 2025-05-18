@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { appliquerTheme, THEMES } from '../utils/theme-utils';
 
 export interface ThemeOption {
   id: string;
@@ -15,40 +16,6 @@ export class ThemeService {
   private themeSubject = new BehaviorSubject<string>('');
   public theme$ = this.themeSubject.asObservable();
   
-  // Les thèmes disponibles
-  public availableThemes: ThemeOption[] = [
-    { 
-      id: 'theme-joy', 
-      name: 'Mode Joyeux', 
-      description: 'Un thème coloré et joyeux avec des tons roses', 
-      previewColor: '#f43f5e' 
-    },
-    { 
-      id: 'theme-sadness', 
-      name: 'Mode Mélancolique', 
-      description: 'Un thème aux tons bleus apaisants', 
-      previewColor: '#3b82f6' 
-    },
-    { 
-      id: 'theme-anger', 
-      name: 'Mode Passion', 
-      description: 'Un thème aux couleurs chaudes et vibrantes', 
-      previewColor: '#ef4444' 
-    },
-    { 
-      id: 'theme-neutre', 
-      name: 'Mode Neutre', 
-      description: 'Un thème équilibré et épuré', 
-      previewColor: '#6b7280' 
-    },
-    { 
-      id: 'theme-intensity', 
-      name: 'Mode Intensité', 
-      description: 'Un thème énergique et vibrant, sans être extrême',
-      previewColor: '#8b5cf6' 
-    }
-  ];
-
   constructor() {
     // Check local storage for saved theme
     const savedTheme = localStorage.getItem('theme');
@@ -75,4 +42,23 @@ export class ThemeService {
   isDarkMode(): boolean {
     return document.documentElement.classList.contains('dark');
   }
+
+  switchTheme(theme: string): void {
+    switch (theme) {
+      case 'joy':
+        //this.themeSubject.next('joy');
+        appliquerTheme(THEMES.JOY);
+        break;
+      case 'sadness':
+        //this.themeSubject.next('sadness');
+        appliquerTheme(THEMES.SADNESS);
+        break;
+      case 'anger':
+        //this.themeSubject.next('anger');
+        appliquerTheme(THEMES.ANGER);
+        break;
+    default:
+      break;
+  }
+}
 }

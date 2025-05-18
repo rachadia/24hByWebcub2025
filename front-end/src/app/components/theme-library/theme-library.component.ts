@@ -69,14 +69,7 @@ import { ThemeLibraryService, ThemeStyle } from '../../services/theme-library.se
         <div class="mt-4">
           <h4 class="mb-2 text-lg font-medium">Utilisation du thème</h4>
           <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-md">
-            <pre class="text-sm overflow-x-auto"><code>// Importer le ThemeLibraryService
-import { ThemeLibraryService } from 'src/app/services/theme-library.service';
-
-// Injecter dans votre composant
-constructor(private themeLibrary: ThemeLibraryService) { }
-
-// Appliquer le thème à un élément
-this.themeLibrary.applyTheme('themeId', monElement);</code></pre>
+            <pre class="text-sm overflow-x-auto"><code>// Importer le ThemeLibraryService</code></pre>
           </div>
         </div>
       </div>
