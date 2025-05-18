@@ -115,14 +115,14 @@ import { TranslateModule } from '@ngx-translate/core';
                 {{ 'HOME.CTA.GET_STARTED' | translate }}
               </a>
             </div>
-            <div class="ml-3 inline-flex rounded-md shadow">
+            <!--<div class="ml-3 inline-flex rounded-md shadow">
               <a
                 routerLink="/auth/login"
                 class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-5 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
               >
                 {{ 'HOME.CTA.LEARN_MORE' | translate }}
               </a>
-            </div>
+            </div>-->
           </div>
         </div>
       </div>

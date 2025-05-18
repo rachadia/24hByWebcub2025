@@ -95,6 +95,11 @@ export class EventService {
   }
 
 
+  updateLike(id: string): Observable<Event> {
+    return this.http.post<Event>(`${this.apiUrl}/${id}/likes`, {increment: true}, { headers: this.getHeaders() });
+  }
+
+
   updateComment(id: string, eventData: Partial<Event>): Observable<Event> {
     return this.http.post<Event>(`${this.apiUrl}/${id}/comments`, eventData, { headers: this.getHeaders() });
   }
@@ -138,7 +143,7 @@ export class EventService {
         }
         // Incrémenter les likes
         event.likes += 1;
-        return this.updateEvent(eventId, event).pipe(
+        return this.updateLike(eventId).pipe(
           map(updatedEvent => {
             this.eventsSubject.next([...this.events]);
             return updatedEvent;

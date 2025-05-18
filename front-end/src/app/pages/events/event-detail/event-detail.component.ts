@@ -227,7 +227,6 @@ export class EventDetailComponent implements OnInit {
       next: event => {
         this.event = event;
         this.isLoading = false;
-        console.log(this.event);
         switch (this.event?.emotion) {
           case 'joy':
             this.themeService.setTheme('joy');
@@ -249,7 +248,12 @@ export class EventDetailComponent implements OnInit {
     if (!this.event) return;
     this.eventService.toggleLike(this.event.id).subscribe({
       next: updatedEvent => {
-        this.event = updatedEvent;
+        console.log(updatedEvent);
+        const eventId = this.route.snapshot.paramMap.get('id');
+        if (eventId) {
+          this.loadEvent(eventId);
+          this.switchTheme(this.event?.emotion || '');
+        }
       },
       error: error => {
         console.error('Error liking event:', error);
