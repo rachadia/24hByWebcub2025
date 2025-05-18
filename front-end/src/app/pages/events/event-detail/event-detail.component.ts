@@ -110,6 +110,7 @@ import { ThemeService } from '../../../services/theme.service';
               </button>
             </div>
             <button
+              (click)="shareEvent()"
               class="rounded-md px-3 py-1 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
             >
               <span>🔗 Share</span>
@@ -260,11 +261,19 @@ export class EventDetailComponent implements OnInit {
     if (!this.event || !this.currentUser || !this.newComment.trim()) return;
 
     this.eventService
-      .addComment(this.event.id, this.currentUser.id, this.currentUser.name, this.newComment.trim())
+      .addComment(this.event.id, this.currentUser.id, this.currentUser.username, this.newComment.trim())
       .subscribe({
         next: updatedEvent => {
           this.event = updatedEvent;
           this.newComment = '';
+          this.eventService.getEventById(this.event.id).subscribe({
+            next: freshEvent => {
+              this.event = freshEvent;
+            },
+            error: error => {
+              console.error('Error refreshing event:', error);
+            }
+          });
         },
         error: error => {
           console.error('Error adding comment:', error);
@@ -317,4 +326,39 @@ export class EventDetailComponent implements OnInit {
       break;
   }
 }
+  shareEvent(): void {
+    const url = window.location.href;
+    
+    // Vérifier si l'API Web Share est disponible
+    if (navigator.share) {
+      navigator.share({
+        title: this.event?.title || 'Event',
+        text: this.event?.content || 'Check out this event!',
+        url: url
+      })
+      .catch(error => {
+        console.error('Error sharing:', error);
+        this.copyToClipboard(url);
+      });
+    } else {
+      // Fallback: copier dans le presse-papier
+      this.copyToClipboard(url);
+    }
+  }
+
+  private copyToClipboard(text: string): void {
+    navigator.clipboard.writeText(text).then(() => {
+      // Afficher une notification de succès
+      const button = document.querySelector('button:has(span:contains("🔗 Share"))');
+      if (button) {
+        const originalText = button.innerHTML;
+        button.innerHTML = '<span>✓ Copied!</span>';
+        setTimeout(() => {
+          button.innerHTML = originalText;
+        }, 2000);
+      }
+    }).catch(err => {
+      console.error('Failed to copy text: ', err);
+    });
+  }
 }

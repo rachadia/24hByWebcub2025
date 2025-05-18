@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { NotificationService } from '../../services/notification.service';
 import { ThemeService } from '../../services/theme.service';
@@ -167,7 +167,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private notificationService: NotificationService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -202,6 +203,7 @@ export class HeaderComponent implements OnInit {
   logout(): void {
     this.authService.logout();
     this.isUserMenuOpen = false;
+    this.router.navigateByUrl('/');
   }
 
   toggleDarkMode(): void {

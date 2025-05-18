@@ -101,6 +101,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
       <!-- Event list -->
       <div class="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3" *ngIf="filteredEvents.length > 0">
         <div *ngFor="let event of filteredEvents" class="card overflow-hidden" [ngClass]="event.theme">
+              <p>{{event.theme}}</p>
           <div class="mb-4">
             <div class="flex items-center justify-between">
               <h3 class="text-xl font-semibold text-gray-900 dark:text-white">{{ event.title }}</h3>
@@ -127,10 +128,10 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
           
           <!-- Footer -->
           <div class="mt-4 flex items-center justify-between pt-3 border-t border-gray-200 dark:border-gray-700">
-            <!--<div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+            <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
               <span class="mr-2">💬 {{ event.comments.length }}</span>
               <span>❤️ {{ event.likes }}</span>         
-            </div> -->
+            </div>
             <a 
               [routerLink]="['/events', event.id]"
               class="text-sm font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
@@ -181,7 +182,6 @@ export class EventListComponent implements OnInit {
 
   loadEvents(): void {
     const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
-    console.log(currentUser);
     if (currentUser) {
       this.eventService.getEventsByUserId(currentUser.id).subscribe({
         next: events => {
@@ -208,6 +208,7 @@ export class EventListComponent implements OnInit {
   }
 
   getEmotionDisplayName(emotion: string): string {
+    console.error(emotion);
     return this.emotionService.getEmotionDisplayName(emotion as any);
   }
 }

@@ -119,9 +119,11 @@
     @apply h-16 w-16;
   }
 }
-
 .theme-joy {
-  @apply bg-gradient-to-br from-joy-50 to-joy-100 dark:from-joy-950 dark:to-joy-900;
+  @apply bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-yellow-50 dark:to-yellow-900;
+  /* Pour changer la couleur, modifiez les valeurs "joy" par la couleur souhaitée */
+  /* Par exemple: yellow, red, blue, green, etc. */
+  /* Vous pouvez aussi utiliser des codes hexadécimaux comme from-[#FFFF00] to-[#FFD700] */
 }
 
 .theme-sadness {
