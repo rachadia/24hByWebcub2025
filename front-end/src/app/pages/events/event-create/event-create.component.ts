@@ -304,12 +304,11 @@ export class EventCreateComponent {
     }
       
     this.isSubmitting = true;
+    
     this.eventForm.patchValue({
       theme: 'theme-' + this.eventForm.value.emotion
     });
     
-    
-
     this.eventService.createEvent(this.eventForm.value).subscribe({
       next: event => {
         this.router.navigate(['/events', event.id]);

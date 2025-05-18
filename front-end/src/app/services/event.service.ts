@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, mergeMap } from 'rxjs';
 import { delay, map, tap } from 'rxjs/operators';
 import { Event } from '../models/event.model';
 import { EmotionService } from './emotion.service';
@@ -17,7 +17,6 @@ export class EventService {
 
   constructor(private http: HttpClient, private emotionService: EmotionService) {
     // Initialize with mock data for development
-    this.initMockEvents();
   }
 
   private getHeaders(): HttpHeaders {
@@ -95,17 +94,16 @@ export class EventService {
     return this.http.put<Event>(`${this.apiUrl}/${id}`, eventData, { headers: this.getHeaders() });
   }
 
+
+  updateComment(id: string, eventData: Partial<Event>): Observable<Event> {
+    return this.http.post<Event>(`${this.apiUrl}/${id}/comments`, eventData, { headers: this.getHeaders() });
+  }
+
   deleteEvent(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
   }
 
   addComment(eventId: string, userId: string, username: string, content: string): Observable<Event> {
-    const event = this.events.find(e => e.id === eventId);
-    
-    if (!event) {
-      throw new Error('Event not found');
-    }
-
     const newComment = {
       id: Date.now().toString(),
       userId,
@@ -114,25 +112,42 @@ export class EventService {
       createdAt: new Date()
     };
 
-    event.comments.push(newComment);
-    this.eventsSubject.next([...this.events]);
-    
-    return of(event).pipe(delay(300));
+    return this.getEventById(eventId).pipe(
+      map(event => {
+        if (!event) {
+          throw new Error('Event not found');
+        }
+        event.comments.push(newComment);
+        return this.updateComment(eventId, event).pipe(
+          map(updatedEvent => {
+            this.eventsSubject.next([...this.events]);
+            return updatedEvent;
+          })
+        );
+      }),
+      // Flatten the nested Observable
+      mergeMap(obs => obs)
+    );
   }
 
   toggleLike(eventId: string): Observable<Event> {
-    const event = this.events.find(e => e.id === eventId);
-    
-    if (!event) {
-      throw new Error('Event not found');
-    }
-
-    // In a real app, you'd track which users have liked which events
-    // For demo purposes, we'll just increment/decrement
-    event.likes += 1;
-    this.eventsSubject.next([...this.events]);
-    
-    return of(event).pipe(delay(300));
+    return this.getEventById(eventId).pipe(
+      map(event => {
+        if (!event) {
+          throw new Error('Event not found');
+        }
+        // Incrémenter les likes
+        event.likes += 1;
+        return this.updateEvent(eventId, event).pipe(
+          map(updatedEvent => {
+            this.eventsSubject.next([...this.events]);
+            return updatedEvent;
+          })
+        );
+      }),
+      // Flatten the nested Observable
+      mergeMap(obs => obs)
+    );
   }
 
   getEventsByEmotion(emotion: string): Observable<Event[]> {

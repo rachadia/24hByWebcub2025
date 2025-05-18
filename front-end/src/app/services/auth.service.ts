@@ -26,7 +26,6 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<User> {
-    console.log('Attempting login for:', email);
     return this.http.post<AuthResponse>(`${this.apiUrl}/login`, { email, password }).pipe(
       tap(response => {
         console.log('Login response:', response);
@@ -42,7 +41,6 @@ export class AuthService {
   }
 
   register(name: string, email: string, password: string): Observable<User> {
-    console.log('Attempting registration for:', email);
     return this.http.post<AuthResponse>(`${this.apiUrl}/register`, { name, email, password }).pipe(
       tap(response => {
         const userWithToken = {
