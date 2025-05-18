@@ -12,7 +12,6 @@ import { appliquerTheme } from '../../../utils/theme-utils';
 import { ThemeService } from '../../../services/theme.service';
 import { THEMES } from '../../../utils/theme-utils';
 import { appliquerTheme } from '../../../utils/theme-utils';
-import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   selector: 'app-event-detail',
@@ -382,39 +381,4 @@ export class EventDetailComponent implements OnInit {
       break;
   }
 }
-  shareEvent(): void {
-    const url = window.location.href;
-    
-    // Vérifier si l'API Web Share est disponible
-    if (navigator.share) {
-      navigator.share({
-        title: this.event?.title || 'Event',
-        text: this.event?.content || 'Check out this event!',
-        url: url
-      })
-      .catch(error => {
-        console.error('Error sharing:', error);
-        this.copyToClipboard(url);
-      });
-    } else {
-      // Fallback: copier dans le presse-papier
-      this.copyToClipboard(url);
-    }
-  }
-
-  private copyToClipboard(text: string): void {
-    navigator.clipboard.writeText(text).then(() => {
-      // Afficher une notification de succès
-      const button = document.querySelector('button:has(span:contains("🔗 Share"))');
-      if (button) {
-        const originalText = button.innerHTML;
-        button.innerHTML = '<span>✓ Copied!</span>';
-        setTimeout(() => {
-          button.innerHTML = originalText;
-        }, 2000);
-      }
-    }).catch(err => {
-      console.error('Failed to copy text: ', err);
-    });
-  }
 }
