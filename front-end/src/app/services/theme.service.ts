@@ -9,19 +9,6 @@ export interface ThemeOption {
   previewColor: string;
 }
 
-export interface ThemeOption {
-  id: string;
-  name: string;
-  description: string;
-  previewColor: string;
-}
-
-export interface ThemeOption {
-  id: string;
-  name: string;
-  description: string;
-  previewColor: string;
-}
 
 @Injectable({
   providedIn: 'root'
