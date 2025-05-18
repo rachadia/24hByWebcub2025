@@ -46,6 +46,10 @@ export const routes: Routes = [
     ]
   },
   {
+    path: 'podium',
+    loadComponent: () => import('./pages/events/event-podium/event-podium.component').then(m => m.EventPodiumComponent)
+  },
+  {
     path: 'profile',
     canActivate: [AuthGuard],
     loadComponent: () => import('./pages/profile/profile.component').then(m => m.ProfileComponent)

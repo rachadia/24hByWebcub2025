@@ -45,6 +45,15 @@ import { TheEndLogoComponent } from '../the-end-logo/the-end-logo.component';
           <!-- Language selector -->
           <app-language-selector></app-language-selector>
 
+          <div class="">
+                <a
+                  routerLink="/podium"
+                  class="flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-3 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700 sm:px-8"
+                >
+                  <span class="mr-2">🏆</span> Hall of Fame
+                </a>
+              </div>
+
           <!-- Dark mode toggle -->
           <button
             (click)="toggleDarkMode()"
