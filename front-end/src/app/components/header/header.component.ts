@@ -75,7 +75,7 @@ import { TranslateModule } from '@ngx-translate/core';
           <!-- Logged in -->
           <div *ngIf="isLoggedIn" class="flex items-center space-x-4">
             <!-- Notifications -->
-            <div class="relative">
+            <!--<div class="relative">
               <a
                 routerLink="/notifications"
                 class="rounded-md p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200"
@@ -88,7 +88,7 @@ import { TranslateModule } from '@ngx-translate/core';
                   {{ unreadCount }}
                 </span>
               </a>
-            </div>
+            </div>-->
 
             <!-- Create new event button -->
             <a
@@ -114,7 +114,7 @@ import { TranslateModule } from '@ngx-translate/core';
                   *ngIf="!currentUser?.profileImage"
                   class="flex h-8 w-8 items-center justify-center rounded-full bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200"
                 >
-                  {{ currentUser?.name?.charAt(0) || 'U' }}
+                  {{ currentUser?.username?.charAt(0) || 'U' }}
                 </div>
               </button>
 

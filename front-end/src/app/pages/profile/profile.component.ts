@@ -32,12 +32,12 @@ import { Event } from '../../models/event.model';
                 *ngIf="!currentUser.profileImage"
                 class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-primary-100 text-2xl font-semibold text-primary-800 dark:bg-primary-900 dark:text-primary-200"
               >
-                {{ currentUser.name.charAt(0) }}
+                {{ currentUser.username.charAt(0) }}
               </div>
             </div>
             <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
               <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Welcome back,</p>
-              <p class="text-xl font-bold text-gray-900 dark:text-white sm:text-2xl">{{ currentUser.name }}</p>
+              <p class="text-xl font-bold text-gray-900 dark:text-white sm:text-2xl">{{ currentUser.username }}</p>
               <p class="text-sm font-medium text-gray-600 dark:text-gray-400">{{ currentUser.email }}</p>
             </div>
           </div>

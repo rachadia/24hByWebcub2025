@@ -26,28 +26,81 @@ import { AuthService } from '../../../services/auth.service';
         <form class="mt-8 space-y-6" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
           <div class="space-y-4">
             <div>
-              <label for="name" class="sr-only">Full name</label>
+              <label for="first_name" class="sr-only">First name</label>
               <input
-                id="name"
-                name="name"
+                id="first_name"
+                name="first_name"
                 type="text"
-                formControlName="name"
-                autocomplete="name"
+                formControlName="first_name"
+                autocomplete="given-name"
                 required
                 class="input relative block w-full rounded-md border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-primary-500 focus:outline-none focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 sm:text-sm"
-                placeholder="Full name"
+                placeholder="First name"
                 [ngClass]="{
                   'border-red-500 dark:border-red-400': 
-                    registerForm.get('name')?.invalid && 
-                    (registerForm.get('name')?.dirty || registerForm.get('name')?.touched)
+                    registerForm.get('first_name')?.invalid && 
+                    (registerForm.get('first_name')?.dirty || registerForm.get('first_name')?.touched)
                 }"
               />
               <div 
-                *ngIf="registerForm.get('name')?.invalid && 
-                      (registerForm.get('name')?.dirty || registerForm.get('name')?.touched)"
+                *ngIf="registerForm.get('first_name')?.invalid && 
+                      (registerForm.get('first_name')?.dirty || registerForm.get('first_name')?.touched)"
                 class="mt-1 text-sm text-red-600 dark:text-red-400"
               >
-                <div *ngIf="registerForm.get('name')?.errors?.['required']">Full name is required</div>
+                <div *ngIf="registerForm.get('first_name')?.errors?.['required']">First name is required</div>
+              </div>
+            </div>
+
+            <div>
+              <label for="last_name" class="sr-only">Last name</label>
+              <input
+                id="last_name"
+                name="last_name"
+                type="text"
+                formControlName="last_name"
+                autocomplete="family-name"
+                required
+                class="input relative block w-full rounded-md border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-primary-500 focus:outline-none focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 sm:text-sm"
+                placeholder="Last name"
+                [ngClass]="{
+                  'border-red-500 dark:border-red-400': 
+                    registerForm.get('last_name')?.invalid && 
+                    (registerForm.get('last_name')?.dirty || registerForm.get('last_name')?.touched)
+                }"
+              />
+              <div 
+                *ngIf="registerForm.get('last_name')?.invalid && 
+                      (registerForm.get('last_name')?.dirty || registerForm.get('last_name')?.touched)"
+                class="mt-1 text-sm text-red-600 dark:text-red-400"
+              >
+                <div *ngIf="registerForm.get('last_name')?.errors?.['required']">Last name is required</div>
+              </div>
+            </div>
+
+            <div>
+              <label for="username" class="sr-only">Username</label>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                formControlName="username"
+                autocomplete="username"
+                required
+                class="input relative block w-full rounded-md border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-primary-500 focus:outline-none focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 sm:text-sm"
+                placeholder="Username"
+                [ngClass]="{
+                  'border-red-500 dark:border-red-400': 
+                    registerForm.get('username')?.invalid && 
+                    (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)
+                }"
+              />
+              <div 
+                *ngIf="registerForm.get('username')?.invalid && 
+                      (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)"
+                class="mt-1 text-sm text-red-600 dark:text-red-400"
+              >
+                <div *ngIf="registerForm.get('username')?.errors?.['required']">Username is required</div>
+                <div *ngIf="registerForm.get('username')?.errors?.['minlength']">Username must be at least 3 characters</div>
               </div>
             </div>
             
@@ -245,7 +298,9 @@ export class RegisterComponent {
     private router: Router
   ) {
     this.registerForm = this.formBuilder.group({
-      name: ['', Validators.required],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      username: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
@@ -270,9 +325,9 @@ export class RegisterComponent {
     this.isLoading = true;
     this.errorMessage = '';
 
-    const { name, email, password } = this.registerForm.value;
+    const { first_name, last_name, username, email, password } = this.registerForm.value;
 
-    this.authService.register(name, email, password).subscribe({
+    this.authService.register(first_name, last_name, username, email, password).subscribe({
       next: () => {
         this.router.navigate(['/']);
       },
