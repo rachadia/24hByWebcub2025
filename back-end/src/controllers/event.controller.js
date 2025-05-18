@@ -305,6 +305,17 @@ class EventController {
       next(error);
     }
   }
+
+  // Get podium of events
+  async getPodium(req, res, next) {
+    try {
+      const events = await EventModel.getPodium();
+      res.json(events);
+    } catch (error) {
+      console.error('Error in getPodium:', error);
+      next(error);
+    }
+  }
 }
 
 export default new EventController(); 

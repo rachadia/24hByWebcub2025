@@ -26,9 +26,11 @@ class EventModel {
   // Find event by ID with all relations
   async getEventById(id) {
     const sql = `
-      SELECT e.*, u.username, u.first_name, u.last_name
+      SELECT e.*, u.username, u.first_name, u.last_name, u.profile_picture,
+             (SELECT COUNT(*) FROM event_comments WHERE event_id = e.id) as comment_count,
+             e.likes as like_count
       FROM events e
-      LEFT JOIN users u ON e.user_id = u.id
+      JOIN users u ON e.user_id = u.id
       WHERE e.id = ?
     `;
     const events = await query(sql, [parseInt(id)]);
@@ -37,11 +39,11 @@ class EventModel {
     if (event) {
       // Get comments and attachments
       const [comments, attachments] = await Promise.all([
-        this.getComments(parseInt(id)),
-        this.getAttachments(parseInt(id))
+        this.getComments(event.id),
+        this.getAttachments(event.id)
       ]);
-      event.comments = comments;
-      event.attachments = attachments;
+      event.comments = comments || [];
+      event.attachments = attachments || [];
     }
 
     return event;
@@ -50,13 +52,22 @@ class EventModel {
   // Find events by user ID
   async findByUserId(userId) {
     const sql = `
-      SELECT e.*, u.username, u.first_name, u.last_name
+      SELECT e.*, u.username, u.first_name, u.last_name, u.profile_picture,
+             (SELECT COUNT(*) FROM event_comments WHERE event_id = e.id) as comment_count,
+             e.likes as like_count
       FROM events e
-      LEFT JOIN users u ON e.user_id = u.id
+      JOIN users u ON e.user_id = u.id
       WHERE e.user_id = ?
       ORDER BY e.created_at DESC
     `;
     const events = await query(sql, [parseInt(userId)]);
+    
+    // Get comments for each event
+    for (const event of events) {
+      const comments = await this.getComments(event.id);
+      event.comments = comments || [];
+    }
+    
     return events;
   }
   
@@ -120,6 +131,13 @@ class EventModel {
     
     try {
       const events = await query(sql);
+      
+      // Get comments for each event
+      for (const event of events) {
+        const comments = await this.getComments(event.id);
+        event.comments = comments || [];
+      }
+      
       return events;
     } catch (error) {
       console.error('Error in findAll:', error);
@@ -207,6 +225,33 @@ class EventModel {
     
     const result = await query(sql, [parseInt(id)]);
     return result.affectedRows > 0;
+  }
+
+  // Get podium of events (sorted by likes)
+  async getPodium() {
+    const sql = `
+      SELECT e.*, u.username, u.first_name, u.last_name, u.profile_picture,
+             (SELECT COUNT(*) FROM event_comments WHERE event_id = e.id) as comment_count,
+             e.likes as like_count
+      FROM events e
+      JOIN users u ON e.user_id = u.id
+      ORDER BY e.likes DESC
+    `;
+    
+    try {
+      const events = await query(sql);
+      
+      // Get comments for each event
+      for (const event of events) {
+        const comments = await this.getComments(event.id);
+        event.comments = comments || [];
+      }
+      
+      return events;
+    } catch (error) {
+      console.error('Error in getPodium:', error);
+      throw error;
+    }
   }
 }
 
